@@ -1,7 +1,7 @@
 # MuSe-FuTa
 Multiple Segmentation Fusion algorithm developed as part of the Tartaglia IA project to improve medical research.
 
-The first step to take in order to build this multiple segmentation fusion is, amazingly, to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only 3 segmentators, although two of them have several different models, this Segmentators are TotalSegmentator, Platipy and Moose(v3).
+The first step to take in order to build this multiple segmentation fusion is, amazingly, to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only 3 segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
 
 STEP 1) To install and use them, follow the next instructions:
 
