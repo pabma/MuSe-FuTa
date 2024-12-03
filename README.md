@@ -30,7 +30,7 @@ STEP 1) To install and use them, follow the next instructions:
 
 3) How to run them all, and in darkness bind them.
    - copy 'runsegms.sh', 'moose.py' and 'checklist.py' to [a_name]
-   - Be sure that there is no file or directory in [a_name] which begins with CT_*
+   - Be sure that there is no current file or directory in [a_name] which begins with CT_*
    - copy your original CT files to [a_name], and change their names so they begin with CT_*
    - run 'sh runsegms.sh' (linux)
    - enjoy some time doing something else while they run
