@@ -29,7 +29,7 @@ STEP 1) To install and use the segmentators, follow the next instructions (ubunt
       - Run 'sh runsegms.sh' (linux OS).
       - Enjoy some time doing something else while they run.
 
-This will create several directories and run all the segmentators in order, placing their output files in the right directories. BE WARNED, ADVENTURER!!  IF YOU CHANGE THE NAME OR REMOVE ANY OF THIS DIRECTORIES, THE NEXT STEPS ARE DOOMED TO FAIL UNLESS YOU CHANGE ALSO THE CODE!!  The directory 'Used' is of special importance here, beware of put or remove files there.
+This will create several directories and run all the segmentators in order, placing their output files in the right directories. BE WARNED, ADVENTURER!!  IF YOU CHANGE THE NAME OR REMOVE ANY OF THIS DIRECTORIES, THE NEXT STEPS ARE DOOMED TO FAIL UNLESS YOU ALSO CHANGE THE CODE!!  The directory 'Used' is of special importance here, beware of put or remove files there.
 
 STEP 2) To run the processing and fusion of the segmented images.
 
