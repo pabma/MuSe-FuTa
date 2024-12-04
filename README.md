@@ -14,12 +14,13 @@ STEP 1) To install and use the segmentators, follow the next instructions (ubunt
   
 2) Install the Segmentators and other necessary packets:
    - conda activate [a_name].
+   - Download 'requirements.txt' into [a_name].
    - pip install -r requrirements.txt.
    - Look for some CTs to segment, a few places to find CTs are:
         -
 
 3) How to run them all, and in darkness bind them:
-   - Copy 'runsegms.sh', 'moose.py' and 'checklist.py' to [a_name].
+   - Download 'runsegms.sh', 'moose.py' and 'checklist.py' into [a_name].
    - Be sure that there is no current file or directory in [a_name] which begins with CT_*.
    - Copy your original CT files to [a_name], and change their names so they begin with CT_*.
    - Run 'sh runsegms.sh' (linux OS).
