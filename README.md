@@ -46,4 +46,4 @@ STEP 2) To run the processing and fusion of the segmented images.
       - --hvalves .- Will include the different heart valves (mitral, tricuspid, aortic and pulmonary) into the mixed image. It is important to set this option to simulate the heartbeat later on.
    - Enjoy some time doing anything else while the software is fusing/assembling the segmented images.
 
-This will create a directory called 'mix', where the fused/assembled images will be put, ready to be used in the postprocessing. And, right now, several images with the valves rotated by a certain degree
+This will create a directory called 'mix', where the fused/assembled images will be put, ready to be used in the postprocessing. And, right now, several images with the valves rotated by a certain degree into your main directory.
