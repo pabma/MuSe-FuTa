@@ -5,7 +5,7 @@ The first step to take in order to build this multiple segmentation fusion is (a
 
 Some versions of the algorithm do not currently use the Moose output, if you do not desire to install it, or any other segmentator, edit the requirements.txt file accordingly, although, if you remove Platipy or TotalSegmentator, you will have to edit also the code later on in order for it to work properly.
 
-STEP 1) To install and use the segmentators, follow the next instructions:
+STEP 1) To install and use the segmentators, follow the next instructions (for an ubuntu environment, a couple places might have to be edited for other OS):
 
 1) Create a virtual environment.
    - mkdir [a_name -> direcotry/environment name]
