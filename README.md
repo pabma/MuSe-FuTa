@@ -56,3 +56,5 @@ STEP 3) In order to generate the npz files, which will be used later on to simul
    - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original mixed file, using --noXCAT. If you do not use this option, the software will automatically generate a file in mix with the XCAT labels, and generate a npz file with it. **NOTE: RIGHT NOW, YOU CANNOT USE THE XCAT LABELS IF YOU WANT THE VALVES TO MOVE.
 
 This will generate a npz file in your main directory, assigning several tissue properties to each label, like density or sound speed, and creating the frames which will allow the Ultrasound simulator to run properly.
+
+TO COMMIT.
