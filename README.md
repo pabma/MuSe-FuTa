@@ -48,6 +48,6 @@ STEP 2) To run the processing and fusion of the segmented images.
 
 This will create a directory called 'mix', where the fused/assembled images will be put, ready to be used in the postprocessing. And, right now, several images with the valves rotated by a certain degree
 
-STEP 3) To create the npz files which will be used to simulate the ultrasounds.
+STEP 3) To create the npz files which will be used later on to simulate the ultrasounds.
 
    
