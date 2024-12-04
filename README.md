@@ -8,14 +8,14 @@ Some versions of the algorithm do not currently use the Moose output. If you do 
 STEP 1) To install and use the segmentators, follow the next instructions (ubuntu OS, a couple places might have to be edited in requirements.txt for other OS):
 
    1) Create a virtual environment:
-      - mkdir [a_name -> direcotry/environment name].
-      - cd [a_name].
-      - conda create --name [a_name] python=3.10.
+      - mkdir [a_name -> direcotry/environment name]
+      - cd [a_name]
+      - conda create --name [a_name] python=3.10
   
    2) Install the Segmentators and other necessary packets:
-      - conda activate [a_name].
+      - conda activate [a_name]
       - Download 'requirements.txt' into [a_name].
-      - pip install -r requrirements.txt.
+      - pip install -r requrirements.txt
       - Look for some CTs to download and segment, a few places to find CTs are:
         - https://zenodo.org/records/10047292 (Full TotalSegmentator training dataset, there are several repeated images here under different name)
         - https://zenodo.org/records/10047263 (Reduced TotalSegmentator training dataset)
@@ -23,7 +23,7 @@ STEP 1) To install and use the segmentators, follow the next instructions (ubunt
         - https://www.kaggle.com/datasets/mohamedhanyyy/chest-ctscan-images
 
    3) How to run them all, and (later on) in darkness bind them:
-      - Download 'runsegms.sh', 'moose.py' and 'checklist.py' into [a_name].
+      - Download 'runsegms.sh', 'moose.py' and 'checkaxis.py' into [a_name].
       - Be sure that there is no current file or directory in [a_name] which begins with CT_*.
       - Copy your original CT files to [a_name], and change their names so they begin with CT_*.
       - Run 'sh runsegms.sh' (linux OS).
@@ -40,8 +40,8 @@ STEP 2) To run the processing and fusion of the segmented images.
    - Download 'runproc.sh' and 'runprocPTyTS.sh' into [a_name]. This two files are, in fact, the same but with different commented lines so, if you are up to edit them yourself, you can use only one of them and edit it as you need, the second one does not use Moose output to generate its files.
    - Download the files 'preproc.py', 'preproc_TSyPT.py', 'mix_img.py', 'mix_img_TSyPT.py', 'postproc_valves.py', 'preproc_def.py', 'postproc_valves.py' and 'valves_def.py' into [a_name]
    - run 'sh runproc.sh' or 'sh runproc_PTyTS.sh' (linux). There are several options to this input:
-      - --flungs .- Will fuse/assemble the lung lobes into a single structure
-      - --fheart .- Will fuse/assemble all the heart structures into a single structure
+      - --flungs .- Will fuse/assemble the lung lobes into a single structure.
+      - --fheart .- Will fuse/assemble all the heart structures into a single structure.
       - --harteries .- Will include the coronary arteries into the mixed image. If this option is not set, those structures will not be included.
       - --hvalves .- Will include the different heart valves (mitral, tricuspid, aortic and pulmonary) into the mixed image. It is important to set this option to simulate the heartbeat later on.
    - Enjoy some time doing anything else while the software is fusing/assembling the segmented images.
