@@ -1,0 +1,15 @@
+pip3 install torch torchvision torchaudio
+python3 -m pip install tensorflow
+pip3 install TotalSegmentator
+sudo apt-get install xvfb
+pip install fury
+pip3 install platipy
+pip install upgrade platipy
+pip install platipy[cardiac]
+pip install platipy[nnunet]
+pip install platipy[backend]
+pip install moosez
+python3 -m pip install -U nilearn
+pip install xlrd
+pip install reorient-nii
+pip install mpdaf
