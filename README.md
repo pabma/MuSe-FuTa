@@ -47,3 +47,12 @@ STEP 2) To run the processing and fusion of the segmented images.
    - Enjoy some time doing anything else while the software is fusing/assembling the segmented images.
 
 This will create a directory called 'mix', where the fused/assembled images will be put, ready to be used in the postprocessing. And, right now, several images with the valves rotated by a certain degree into your main directory.
+
+The assembled image will be cretaed partly using the 'mode' between the different segmented model images for each voxel, plus some specifically picked up choices to assure the presence of certain structures, like the valves, which show up only in one model of the segmentator. 
+
+STEP 3) In order to generate the npz files, which will be used later on to simulate the ultrasound image in movement.
+
+   - Download 'runnpz.sh', 'NPZ_gen_mix_XCAT.py', 'class_map_mix.py', 'npzgen_def.py' and 'Thermal_dielectric_acoustic_MR properties_database_V4.2(Excel)_Tv1_sorted.xls' into [a_name]
+   - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original mixed file, using --noXCAT. If you do not use this option, the software will automatically generate a file in mix with the XCAT labels, and generate a npz file with it. **NOTE: RIGHT NOW, YOU CANNOT USE THE XCAT LABELS IF YOU WANT THE VALVES TO MOVE.
+
+This will generate a npz file in your main directory, assigning several tissue properties to each label, like density or sound speed, and creating the frames which will allow the Ultrasound simulator to run properly.
