@@ -39,9 +39,9 @@ STEP 2) To run the processing and fusion of the segmented images.
      - pip install fastmorph
    - Download 'runproc.sh' and 'runprocPTyTS.sh' into [a_name]. This two files are, in fact, the same but with different commented lines so, if you are up to edit them yourself, you can use only one of them and edit it as you need, the second one does not use Moose output to generate its files.
    - Download the files 'preproc.py', 'preproc_TSyPT.py', 'mix_img.py', 'mix_img_TSyPT.py', 'postproc_valves.py', 'preproc_def.py', 'postproc_valves.py' and 'valves_def.py' into [a_name]
-   - run 'sh runproc.sh' or 'sh runproc_PTyTS.sh' (linux). There are several options to this input:
-      - --flungs .- Will fuse/assemble the lung lobes into a single structure.
-      - --fheart .- Will fuse/assemble all the heart structures into a single structure.
+   - run 'sh runproc.sh' or 'sh runproc_PTyTS.sh' (linux). There are several input options to choose here:
+      - --flungs .- Will fuse/assemble the lung lobes into a single structure representing the lungs.
+      - --fheart .- Will fuse/assemble all the heart structures into a single structure representingt the full heart withuot any cardiac structures (This option is incompatible with the next ones, so take care or weird things might happen).
       - --harteries .- Will include the coronary arteries into the mixed image. If this option is not set, those structures will not be included.
       - --hvalves .- Will include the different heart valves (mitral, tricuspid, aortic and pulmonary) into the mixed image. It is important to set this option to simulate the heartbeat later on.
    - Enjoy some time doing anything else while the software is fusing/assembling the segmented images.
