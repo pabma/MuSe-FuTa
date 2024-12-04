@@ -8,7 +8,7 @@ Some versions of the algorithm do not currently use the Moose output. If you do 
 STEP 1) To install and use the segmentators, follow the next instructions (ubuntu OS, a couple places might have to be edited in requirements.txt for other OS):
 
    1) Create a virtual environment:
-      - mkdir [a_name -> direcotry/environment name]
+      - mkdir [a_name -> directory/environment name]
       - cd [a_name]
       - conda create --name [a_name] python=3.10
   
