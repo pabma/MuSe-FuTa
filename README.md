@@ -1,5 +1,5 @@
 # TartagliaS
-Multiple Segmentation Fusion algorithm developed as part of the Tartaglia IA project to improve medical research.
+This Multiple Segmentation Fusion algorithm has been developed as part of the Tartaglia IA project to improve medical research.
 
 The first step to take in order to build this multiple segmentation fusion is (amazingly, I know) to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only 3 segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
 
