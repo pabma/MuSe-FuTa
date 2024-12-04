@@ -16,7 +16,7 @@ STEP 1) To install and use the segmentators, follow the next instructions (ubunt
    - conda activate [a_name].
    - Download 'requirements.txt' into [a_name].
    - pip install -r requrirements.txt.
-   - Look for some CTs to segment, a few places to find CTs are:
+   - Look for some CTs to download and segment, a few places to find CTs are:
         - https://zenodo.org/records/10047292 (Full TotalSegmentator training dataset, there are several repeated images here under different name)
         - https://zenodo.org/records/10047263 (Reduced TotalSegmentator training dataset)
         - https://www.cancerimagingarchive.net/collection/ct-images-in-covid-19/
