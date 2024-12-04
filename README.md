@@ -1,9 +1,9 @@
 # TartagliaS
-This Multiple Segmentation Fusion algorithm has been developed as part of the Tartaglia IA project to improve medical research.
+This Multiple Segmentation Fusion/Ensemble algorithm has been developed as part of the Tartaglia IA project to improve medical research.
 
-The first step to take in order to build this multiple segmentation fusion is (amazingly, I know) to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only 3 segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
+The first step to take in order to build this multiple segmentation fusion/ensemble is (amazingly, I know) to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only three segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
 
-Some versions of the algorithm do not currently use the Moose output, if you do not desire to install it, or any other segmentator, edit the requirements.txt file accordingly, although, if you remove TotalSegmentator, you will have to edit also the code later on in order for it to work properly.
+Some versions of the algorithm do not currently use the Moose output. If you do not desire to install it, or any other segmentator, edit the requirements.txt file accordingly, although, if you remove TotalSegmentator, you will have to edit also the code later on in order for it to work properly.
 
 STEP 1) To install and use the segmentators, follow the next instructions (ubuntu OS, a couple places might have to be edited in requirements.txt for other OS):
 
