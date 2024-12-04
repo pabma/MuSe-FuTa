@@ -3,14 +3,16 @@ This Multiple Segmentation Fusion algorithm has been developed as part of the Ta
 
 The first step to take in order to build this multiple segmentation fusion is (amazingly, I know) to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only 3 segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
 
-STEP 1) To install and use them, follow the next instructions:
+Some versions of the algorithm do not currently use the Moose output, if you do not desire to install it, or any other segmentator, edit the requirements.txt file accordingly, although, if you remove Platipy or TotalSegmentator, you will have to edit also the code later on in order for it to work properly.
+
+STEP 1) To install and use the segmentators, follow the next instructions:
 
 1) Create a virtual environment.
    - mkdir [a_name -> direcotry/environment name]
    - cd [a_name]
    - conda create --name [a_name] python=3.10
   
-2) Install the Segmentators and other necessary apps.
+2) Install the Segmentators and other necessary packets.
    - conda activate [a_name]
    - pip3 install torch torchvision torchaudio
    - python3 -m pip install tensorflow
