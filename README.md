@@ -3,8 +3,6 @@ This Multiple Segmentation Fusion/Ensemble algorithm has been developed as part 
 
 The first step to take in order to build this multiple segmentation fusion/ensemble is (amazingly, I know) to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only three segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
 
-Some versions of the algorithm do not currently use the Moose output. If you do not desire to install it, or any other segmentator, edit the requirements.txt file accordingly, although, if you remove TotalSegmentator, you will have to edit also the code later on in order for it to work properly.
-
 STEP 1) To install and use the segmentators, follow the next instructions (ubuntu OS, a couple places might have to be edited in requirements.txt for other OS):
 
    1) Create a virtual environment:
@@ -15,7 +13,7 @@ STEP 1) To install and use the segmentators, follow the next instructions (ubunt
    2) Install the Segmentators and other necessary packets:
       - conda activate [a_name]
       - Download 'requirements.txt' into [a_name].
-      - pip install -r requrirements.txt
+      - pip install -r requirements.txt
       - Look for some CTs to download and segment, a few places to find CTs are:
         - https://zenodo.org/records/10047292 (Full TotalSegmentator training dataset, there are several repeated images here under different name)
         - https://zenodo.org/records/10047263 (Reduced TotalSegmentator training dataset)
@@ -24,7 +22,7 @@ STEP 1) To install and use the segmentators, follow the next instructions (ubunt
 
    3) How to run them all, and (later on) in darkness bind them:
       - Download 'runsegms.sh', 'moose.py' and 'checkaxis.py' into [a_name].
-      - Be sure that there is no current file or directory in [a_name] which begins with CT_*.
+      - Be sure that there is no current file or directory in [a_name] which begins with CT_* or any file ending in *.nii.gz.
       - Copy your original CT files to [a_name], and change their names so they begin with CT_*.
       - Run 'sh runsegms.sh' (linux OS).
       - Enjoy some time doing something else while they run.
