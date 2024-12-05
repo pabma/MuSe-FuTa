@@ -4,7 +4,7 @@ import glob
 import nibabel as nib
 import numpy as np
 import gc
-from preproc_def import TS_total, TS_body, TS_bronc, PTlungs, PTstru, PTarte, PTvalv, MOProc, PTmix_1, PTmix_2, MOmix_1, MOmix_2, PTstruPTyTS
+from preproc_def import TS_total, TS_body, TS_bronc, PTlungs, PTstru, PTarte, PTvalv, MOProc, PTmix_1, PTmix_2, MOmix_1, MOmix_2, MO_pulart, PTstruPTyTS
 
 gc.collect()
 
@@ -50,6 +50,8 @@ PTvalv(barefile,args,fakeimg)
 
 PTmix_1(barefile)
 PTmix_2(barefile)
+
+MO_pulart(barefile)
 
 #for model in models:
 #    MOProc(barefile,args,fakeimg,model)

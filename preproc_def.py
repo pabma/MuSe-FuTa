@@ -7,8 +7,10 @@ import cv2
 from valves_def import thin_valve
 
 #ESTRUCTURAS PARA TOTALSEGMENTATOR
-strut = [10,11,12,13,14,61,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115]
-invstrut = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,116,117]
+strut = [10,11,12,13,14,51,61,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115]
+#strut_orig = [10,11,12,13,14,61,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115]
+invstrut = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,52,53,54,55,56,57,58,59,60,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,116,117]
+# invstrut_orig = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,116,117]
 lungl = [10,11,12,13,14]
 fribs = [92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115]
 
@@ -35,11 +37,13 @@ def TS_total(TSbarename,args,fakeimg):
                     TS_img_d = TS_img_d + (TS_d == st) * TS_d * 150 / st
                 if args.flungs != True:
                     TS_img_d = TS_img_d + (TS_d == st) * TS_d
-            if st == 61:
-                if args.fheart == True:
-                    TS_img_d = TS_img_d + (TS_d == 61) * TS_d * 51 / 61
-                if args.fheart != True:
-                    TS_img_d = TS_img_d + (TS_d == 61) * TS_d
+#            if st == 61:
+#                if args.fheart == True:
+#                    TS_img_d = TS_img_d + (TS_d == 61) * TS_d * 51 / 61
+#                if args.fheart != True:
+#                    TS_img_d = TS_img_d + (TS_d == 61) * TS_d
+            if st == 51:  ## realmente no seria necesario, pero para llamar la atencion sobre esto, retirado por que daba problemas con la arteria pulmonar.
+                TS_img_d = TS_img_d + (TS_d == 51) * TS_d * 0
             if st in fribs:
                 TS_img_d = TS_img_d + (TS_d == st) * TS_d * 159 / st
         for ist in invstrut:
@@ -940,6 +944,30 @@ def MOmix_2(barename):
     
     gc.collect()
     
+############################################### FIN DEL ARCHIVO ORIGINAL
+
+## SUBRUTINA MODIFICADA PARA COGER SOLO LA ARTERIA PULMONAR Y PODER PONERLA EN EL MIX SIN QUE DE PROBLEMAS EL CORAZON.
+def MO_pulart(MObarename)
+                
+    if os.path.exists(pwdsmo+'MO/clin_CT_cardiac_segmentation_'+MObarename+'.nii.gz'):
+        print('Preprocessing MO model = '+model+' for '+MObarename)
+
+        MO_c = nib.load(pwdsmo+'MO/clin_CT_'+model+'_segmentation_'+MObarename+'.nii.gz')
+        MO_c_d = MO_c.get_fdata()
+        MO_c_affine = MO_c.affine
+                
+        MO_c_pula = (MO_c_d == 13) * MO_c_d * 155 / 13
+                
+        MO_c_masked_img = nib.Nifti1Image(MO_c_pula,MO_c_affine)
+        nib.save(MO_c_masked_img,pwdsmo+'preMO_'+MObarename+'_c.nii.gz')
+                    
+        gc.collect()
+                    
+    else:
+        print('path to: '+pwdsmo+'MO/clin_CT_'+model+'_segmentation_'+MObarename+'.nii.gz does not exist, creating fake files')
+        nib.save(fakeimg,pwdsmo+'preMO_'+MObarename+'_F_c.nii.gz')
+        gc.collect()
+
 
 ## A PARTIR DE AQUI, SI SOLO UTILIZAMOS PLATIPY Y TOTALSEGMENTATOR, MODIFICACION DE LAS VALVULAS, QUIZAS USABLE TAMBIEN PARA OTROS CASOS
 
