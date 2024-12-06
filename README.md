@@ -22,8 +22,8 @@ STEP 1) To install and use the segmentators, follow the next instructions (ubunt
 
    3) How to run them all, and (later on) in darkness bind them:
       - Download 'runsegms.sh' and the folder 'runsegms' into [a_name].
-      - Be sure that there is no current file or directory in [a_name] which begins with CT_* or any file ending in *.nii.gz.
-      - Copy your original CT files to [a_name] in **.nii.gz format, and change their names so they begin with CT_*.
+      - Be sure that there is no current file or directory in [a_name] which begins with CT_* or any file ending in .nii.gz.
+      - Copy your original CT files to [a_name] in *.nii.gz format, and change their names so they begin with CT_*.
       - Run 'sh runsegms.sh' (linux OS).
       - Enjoy some time doing something else while they run.
 
