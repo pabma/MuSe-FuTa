@@ -5,10 +5,12 @@ import os
 import nibabel as nib
 import gc
 import reorient_nii
-from scipy.ndimage import zoom
-import SimpleITK as sitk
+#from scipy.ndimage import zoom
+#import SimpleITK as sitk
 
 gc.collect()
+
+## resample_volume and the commented parts are related with the try to resize the image to 1 mm spacing and zoom it to have a image of the same physical size. For that, you first need to resample the image with SimpleITK, and then zoom the image with scipy
 
 def resample_volume(volume_path, interpolator = sitk.sitkLinear, new_spacing = [1.0, 1.0, 1.0]):
     volume = sitk.ReadImage(volume_path)
