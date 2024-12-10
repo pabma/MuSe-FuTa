@@ -57,6 +57,7 @@ def thin_valve(mask):
 
     # CON scipy
     eroded_mask = ndimage.binary_erosion(mask,structure=np.ones((3,3,3)),iterations=2).astype(mask.dtype)
+    
     return eroded_mask
 
     gc.collect()
