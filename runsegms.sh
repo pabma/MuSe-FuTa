@@ -7,7 +7,7 @@ if [ ! -d used ]; then
 fi
 
 if [ ! -d reoriented ]; then
-	mkdir reoriented
+	mkdir -p orig/reoriented
 fi
 
 if [ ! -d segms/TS ]; then
