@@ -7,7 +7,8 @@ import pandas as pd
 import cv2
 import gc
 from class_map_mix import class_map, labels_dataset_mix, labels_dataset_XCAT, labels_dataset_mix_XCAT, class_map_XCAT
-from npzgen_def import pointsgen, XCAT_gen
+from npzgen_def import pointsgen, XCAT_gen, crop_miximg, crop_orimg
+
 
 gc.collect()
 
@@ -23,22 +24,11 @@ barename = file.replace("used/","")
 print(barename)
 
 
-#      Load the original CT file.
-orimg = nib.load(pwd+'/used/'+barename+'.nii.gz')
-CT = np.flip(np.swapaxes(orimg.get_fdata(),0,2),axis = 1)
-
-
-#      Generate an XCAT labeled file if wanted and load the mixed image.
-if args.noXCAT != True:
-    print('generando fichero con etiquetas XCAT')
-    XCAT_gen(barename)
-    miximg = nib.load(pwd+'/mix/XCAT_'+barename+'_mix_1.nii.gz')
-if args.noXCAT == True:
-    print("no se creara un fichero con las etiquetas de XCAT para "+barename)
-    miximg = nib.load(pwd+'/mix/'+barename+'_mix_1.nii.gz')
-
+miximg, hepo_z = crop_miximg(barename,args)
 img = np.flip(np.swapaxes(miximg.get_fdata().astype(np.uint8),0,2),axis = 1)
 
+orimg = crop_orimg(barename,hepo_z)
+CT = np.flip(np.swapaxes(orimg.get_fdata(),0,2),axis = 1)
 
 
 TISSUE = (CT>-600).astype(np.uint8)  # APLICO UN THRESHOLD PARA ELIMINAR EL AIRE
@@ -111,6 +101,18 @@ image_L = img   #Using labels directly.
 plt.imshow(np.sum(image_Z[:,:,:],1),'gray');
 print(image_Z.dtype,image_A.dtype,image_L.dtype)
 
+if args.noXCAT == True:
+    heart = (image_L==153).astype(image_L.dtype)  #LV=153 en mix
+if args.noXCAT != True:
+    heart = (image_L==5).astype(image_L.dtype)  #LV=1 en XCAT
+
+from skimage.measure import label, regionprops, regionprops_table
+props = regionprops(heart)
+heart_pos = props[0].centroid
+print("heart_coordinates (z,y,x)= ", heart_pos)
+
+
+
 ### Por ahora todos frames temporales iguales hasta incorporar latido
 image_Z = np.tile(image_Z,(10,1,1,1))
 image_A = np.tile(image_A,(10,1,1,1))
@@ -118,15 +120,7 @@ image_L = np.tile(image_L,(10,1,1,1))
 
 POINTS = pointsgen(image_Z)
 
-if args.noXCAT == True:
-    heart = (image_L[0,:,:,:]==153).astype(image_L[0,:,:,:].dtype)  #LV=153 en mix
-if args.noXCAT != True:
-    heart = (image_L[0,:,:,:]==1).astype(image_L[0,:,:,:].dtype)  #LV=1 en XCAT
 
-from skimage.measure import label, regionprops, regionprops_table
-props = regionprops(heart)
-heart_pos = props[0].centroid
-print("heart_coordinates (z,y,x)= ", heart_pos)
 
 
 # --------- CLOSEST POINT TO HEART --------
