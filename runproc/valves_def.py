@@ -6,6 +6,7 @@ import gc
 import cv2
 from sklearn.decomposition import PCA
 from skimage.measure import label, regionprops
+from scipy import ndimage
 
 gc.collect()
 
@@ -51,10 +52,11 @@ def rot_elem(x_o,y_o,z_o,v_0,v_1,v_2,vec,theta):
     return p1
 
 def thin_valve(mask):
+    # CON cv2
+    #eroded_mask = cv2.erode(mask,np.ones((3,3),np.uint8,iterations=2)
 
-    kernel = np.ones((3,3),np.uint8)
-    eroded_mask = cv2.erode(mask,kernel,iterations=2)
-
+    # CON scipy
+    eroded_mask = ndimage.binary_erosion(mask,structure=np.ones((3,3,3)),iterations=2).astype(mask.dtype)
     return eroded_mask
 
     gc.collect()
@@ -77,9 +79,9 @@ def valve_split(barefile,valve_list):
             print(f'  Bounding box: {rvalve.centroid}')
             print(f'  Major axis length: {rvalve.axis_major_length}')
         c_coord = rvalve.centroid  # centroid coordinates
-        c_coord_int =(int(c_coord[0]),int(c_coord[1]),int(c_coord[2]))
+        c_coord_int =(int(round(c_coord[0])),int(round(c_coord[1])),int(round(c_coord[2])))
         maxis_l = rvalve.axis_major_length
-        maxis_l_int = int(rvalve.axis_major_length)
+        maxis_l_int = int(round(rvalve.axis_major_length))
         p1_v = c_coord
         p2_v = c_coord + pcax_v[1,:]
         p3_v = c_coord + pcax_v[2,:]
@@ -125,9 +127,9 @@ def valve_rot(barefile,angle,valve_list):
             print(f'  Centroid_r: {rvalve.centroid}')
             print(f'  Major axis length_r: {rvalve.axis_major_length}')
         c_coord = rvalve.centroid  # centroid coordinates
-        c_coord_int =(int(c_coord[0]),int(c_coord[1]),int(c_coord[2]))
+        c_coord_int =(int(round(c_coord[0])),int(round(c_coord[1])),int(round(c_coord[2])))
         maxis_l = rvalve.axis_major_length
-        maxis_l_int = int(rvalve.axis_major_length)
+        maxis_l_int = int(round(rvalve.axis_major_length))
         v0_valve = pcax_v[0,:] * maxis_l / 2
         p_valve_plus = c_coord + v0_valve
         p_valve_minus = c_coord - v0_valve
@@ -138,12 +140,14 @@ def valve_rot(barefile,angle,valve_list):
                 for z in range(c_coord_int[2]-maxis_l_int,c_coord_int[2]+maxis_l_int):
                     if img1_d[x,y,z]==valve:
                         p1 = rot_elem(x,y,z,pcax_v[1,0],pcax_v[1,1],pcax_v[1,2],p_valve_minus,-angle)
-                        valve_rot_d_a[int(p1[0]),int(p1[1]),int(p1[2])] = valve
+                        valve_rot_d_a[int(round(p1[0])),int(round(p1[1])),int(round(p1[2]))] = valve
                     if img1_d[x,y,z]==valve_2:
                         p1 = rot_elem(x,y,z,pcax_v[1,0],pcax_v[1,1],pcax_v[1,2],p_valve_plus,angle)
-                        valve_rot_d_a[int(p1[0]),int(p1[1]),int(p1[2])] = valve_2
-        kernel = np.ones((3,3),np.uint8)
-        valve_rot_d_a = cv2.morphologyEx(valve_rot_d_a, cv2.MORPH_CLOSE, kernel)
+                        valve_rot_d_a[int(round(p1[0])),int(round(p1[1])),int(round(p1[2]))] = valve_2
+        # CON cv2
+        #kernel = np.ones((3,3),np.uint8)
+        #valve_rot_d_a = cv2.morphologyEx(valve_rot_d_a, cv2.MORPH_CLOSE, kernel)
+        valve_rot_d_a = ndimage.binary_closing(valve_rot_d_a, structure=np.ones((3,3,3))).astype(valve_rot_d_a.dtype)
     
         valve_rot_d = valve_rot_d + valve_rot_d_a
     
