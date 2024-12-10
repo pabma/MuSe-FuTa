@@ -71,10 +71,10 @@ imgn_aff = new_img.affine
 imgn_axcod = nib.aff2axcodes(imgn_aff)
 print('ax_codes = ',imgn_axcod)
 if imgn_axcod != ('L', 'A', 'S'):
-    print(barename+" must be reoriented to 'LAS' and zoomed to 1 mm spacing")
+    print(barename+" must be reoriented to 'LAS' after being zoomed to 1 mm spacing")
     imgn_r = reorient_nii.reorient(new_img,'LAS')
-    nib.save(imgn_r,pwd+'/'+barename+'_r.nii.gz')
-    shutil.move(pwd+'/'+file,pwd+'/reoriented')
+    nib.save(imgn_r,pwd+'/'+barename+'_r_1mm.nii.gz')
+    shutil.move(pwd+'/'+file,pwd+'/orig/reoriented')
 else:
     print(barename+" has been zoomed to 1 mm spacing")
     nib.save(imgn_z,pwd+'/'+barename+'_1mm.nii.gz')
