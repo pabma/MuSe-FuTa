@@ -136,23 +136,25 @@ def valve_rot(barefile,angle,valve_list):
         p_valve_minus = c_coord - v0_valve
         valve_2 = valve +10
         valve_rot_d_a = np.zeros((img0.shape[0],img0.shape[1],img0.shape[2]))
+        valve_rot_d_b = np.zeros((img0.shape[0],img0.shape[1],img0.shape[2]))
         for x in range(c_coord_int[0]-maxis_l_int,c_coord_int[0]+maxis_l_int):
             for y in range(c_coord_int[1]-maxis_l_int,c_coord_int[1]+maxis_l_int):
                 for z in range(c_coord_int[2]-maxis_l_int,c_coord_int[2]+maxis_l_int):
                     if img1_d[x,y,z]==valve:
                         p1 = rot_elem(x,y,z,pcax_v[1,0],pcax_v[1,1],pcax_v[1,2],p_valve_minus,-angle)
-                        valve_rot_d_a[int(round(p1[0])),int(round(p1[1])),int(round(p1[2]))] = valve
+                        valve_rot_d_a[int(round(p1[0])),int(round(p1[1])),int(round(p1[2]))] = 1.0
                     if img1_d[x,y,z]==valve_2:
                         p1 = rot_elem(x,y,z,pcax_v[1,0],pcax_v[1,1],pcax_v[1,2],p_valve_plus,angle)
-                        valve_rot_d_a[int(round(p1[0])),int(round(p1[1])),int(round(p1[2]))] = valve_2
+                        valve_rot_d_b[int(round(p1[0])),int(round(p1[1])),int(round(p1[2]))] = 1.0
         # CON cv2
         #kernel = np.ones((3,3),np.uint8)
         #valve_rot_d_a = cv2.morphologyEx(valve_rot_d_a, cv2.MORPH_CLOSE, kernel)
         
         # CON scipy
-        valve_rot_d_a = ndimage.binary_closing(valve_rot_d_a, structure=np.ones((3,3,3))).astype(valve_rot_d_a.dtype)
+        valve_rot_d_a = ndimage.binary_closing(valve_rot_d_a, structure=np.ones((3,3,3))).astype(valve_rot_d_a.dtype) * valve
+        valve_rot_d_b = ndimage.binary_closing(valve_rot_d_b, structure=np.ones((3,3,3))).astype(valve_rot_d_a.dtype) * valve_2
     
-        valve_rot_d = valve_rot_d + valve_rot_d_a
+        valve_rot_d = valve_rot_d + valve_rot_d_a + valve_rot_d_b
     
     return valve_rot_d, img0.affine
     
