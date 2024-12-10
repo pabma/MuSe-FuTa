@@ -148,6 +148,8 @@ def valve_rot(barefile,angle,valve_list):
         # CON cv2
         #kernel = np.ones((3,3),np.uint8)
         #valve_rot_d_a = cv2.morphologyEx(valve_rot_d_a, cv2.MORPH_CLOSE, kernel)
+
+        # CON scipy
         valve_rot_d_a = ndimage.binary_closing(valve_rot_d_a, structure=np.ones((3,3,3))).astype(valve_rot_d_a.dtype)
     
         valve_rot_d = valve_rot_d + valve_rot_d_a
