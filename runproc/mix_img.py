@@ -35,7 +35,7 @@ def checklist(lis,tup):
 
 name = args.Output
 barename = name.replace("used/","")
-print("mixing "+barename)
+print("Assembling "+barename)
 
 TSfiles = glob.glob(pwdsts+'TS_'+barename+'_*', recursive=True)
 TSfile = pwdsts+'TS_'+barename+'.nii.gz'
