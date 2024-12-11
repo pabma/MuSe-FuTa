@@ -40,7 +40,7 @@ img = nib.load(pwd+'/'+file)
 
 print('original image shape ',img.shape)
 
-#pxdm = img.header['pixdim']
+pxdm = img.header['pixdim']
 #print('orig pixdim',pxdm)
 #print('sitk pixdim', imgn.header['pixdim'])
 
