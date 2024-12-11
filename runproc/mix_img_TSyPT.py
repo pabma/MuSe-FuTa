@@ -23,7 +23,7 @@ pwdspt = os.getcwd()+'/segms/PT/'
 pwdsmo = os.getcwd()+'/segms/MO/'
 
 
-hstrut = [61,151,152,153,154,156]  # Estructuras principales dentro del corazon, auriculas, ventriculos, miocardio.
+hstrut = [61,151,152,153,154,156,181,182,184]  # Estructuras principales dentro del corazon, auriculas, ventriculos, miocardio.
 hart = [162,163,164,165]  # Arterias coronarias, prioritarias sobre las estructuras si estan presentes, pero no sobre las valvulas.
 llobes = [10,11,12,13,14]  # Bronquios tendran prioridad sobre pulmones y lobulos pulmonares, en caso de que se quieran añadir.
 hvalv = [167,168,169,170]  # Valvulas cardiacas, maxima prioridad si están presentes.
