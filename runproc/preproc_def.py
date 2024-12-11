@@ -43,7 +43,7 @@ def TS_total(TSbarename,args,fakeimg):
 #                    TS_img_d = TS_img_d + (TS_d == 61) * TS_d * 51 / 61
 #                if args.fheart != True:
 #                    TS_img_d = TS_img_d + (TS_d == 61) * TS_d
-            if st == 51:  ## realmente no seria necesario, pero para llamar la atencion sobre esto, retirado por que daba problemas con la arteria pulmonar.
+            if st == 51:  ## realmente no seria necesario, pero para llamar la atencion sobre esto, corazon de TS retirado por que daba problemas con la arteria pulmonar.
                 TS_img_d = TS_img_d + (TS_d == 51) * TS_d * 0
             if st in fribs:
                 TS_img_d = TS_img_d + (TS_d == st) * TS_d * 159 / st
