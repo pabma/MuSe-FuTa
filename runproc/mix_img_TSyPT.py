@@ -7,6 +7,8 @@ import statistics as st
 import gc
 #from scipy import stats
 
+## NOTA: PROBABLEMENTE SE PUEDA REDUCIR EL TIEMPO DE CALCULO VACIANDO UN CIRCULO EN TORNO AL CORAZON (usar el centro del corazón de platipy para ello) Y CORRIENDO LA PARTE DE ELECCION DE ESTRUCTURAS SOLO EN LA ESFERA QUE INCLUYA EL CORAZON.
+
 gc.collect()
 
 parser = argparse.ArgumentParser()
