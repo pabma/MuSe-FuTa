@@ -5,6 +5,7 @@ import gc
 import glob
 import cv2
 from valves_def import thin_valve
+from scipy import ndimage
 
 #ESTRUCTURAS PARA TOTALSEGMENTATOR
 strut = [10,11,12,13,14,51,61,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115]
@@ -273,8 +274,8 @@ def PTvalv(barename,args,fakeimg):
         PT_miV = nib.load(pwdspt+'/'+barename+'/Valve_Mitral.nii.gz')
         PT_affine = PT_miV.affine
         if args.hvalves == True:
-            PT_miV_d = PT_miV.get_fdata() * 167
-            PT_miV_d = thin_valve(PT_miV_d)         # PARA ADELGAZAR LA VALVULA MITRAL.
+            PT_miV_d = PT_miV.get_fdata()
+            PT_miV_d = thin_valve(PT_miV_d)  * 167       # PARA ADELGAZAR LA VALVULA MITRAL.
         if args.fheart == True:
             PT_miV_d = PT_miV.get_fdata() * 51
         if args.fheart != True and args.hvalves != True:
@@ -282,8 +283,8 @@ def PTvalv(barename,args,fakeimg):
 
         PT_triV = nib.load(pwdspt+'/'+barename+'/Valve_Tricuspid.nii.gz')
         if args.hvalves == True:
-            PT_triV_d = PT_triV.get_fdata() * 168
-            PT_triV_d = thin_valve(PT_triV_d)       # PARA ADELGAZAR LA VALVULA TRICUSPIDE.
+            PT_triV_d = PT_triV.get_fdata()
+            PT_triV_d = thin_valve(PT_triV_d) * 168      # PARA ADELGAZAR LA VALVULA TRICUSPIDE.
         if args.fheart == True:
             PT_triV_d = PT_triV.get_fdata() * 51
         if args.fheart != True and args.hvalves != True:
@@ -975,8 +976,8 @@ def MO_pulart(MObarename):
 # GENERA ESTRUCTURAS DE MIOCARDIO Y MUSCULO CARDIACO EN TORNO A LAS CAMARAS CARDIACAS PARA PLATIPY, QUE SEGMENTA EL CONJUNTO CAMARA+MUSCULO DE CADA REGION CONJUNTAMENTE.
 def PTstruPTyTS(barename,args,fakeimg):
     
-    kernel = np.ones((2,2),np.uint8)
-    kernelm = np.ones((3,3),np.uint8)
+#    kernel = np.ones((2,2),np.uint8)
+#    kernelm = np.ones((3,3),np.uint8)
 #    pwdspt = os.getcwd()+'/segms/PT/'
     if os.path.exists(pwdspt+'/'+barename):
         print('Preprocessing PT-structures for ' + barename)
@@ -990,7 +991,8 @@ def PTstruPTyTS(barename,args,fakeimg):
             PT_atrL_d = PT_atrL.get_fdata() * 51
         else:
             PT_atrL_d = PT_atrL.get_fdata() * 151
-            PT_atrL_d_er = cv2.erode(PT_atrL_d,kernel,iterations=1)
+            PT_atrL_d_er = ndimage.binary_erosion(PT_atrL.get_fdata(),structure=np.ones((3,3,3)),iterations=1).astype(PT_atrL.get_fdata().dtype) * 151
+#            PT_atrL_d_er = cv2.erode(PT_atrL_d,kernel,iterations=1)
             PT_atrL_d_mio = ( PT_atrL_d - PT_atrL_d_er ) * 181 / 151   # *156 miocardio, *51 corazon, ¿etiqueta nueva?
 #            PT_atrL_d = PT_atrL_d * 191 / 151   # comentada puesto que no la estaba usando
         
@@ -999,7 +1001,8 @@ def PTstruPTyTS(barename,args,fakeimg):
             PT_atrR_d = PT_atrR.get_fdata() * 51
         else:
             PT_atrR_d = PT_atrR.get_fdata() * 152
-            PT_atrR_d_er = cv2.erode(PT_atrR_d,kernel,iterations=1)
+            PT_atrR_d_er = ndimage.binary_erosion(PT_atrR.get_fdata(),structure=np.ones((3,3,3)),iterations=1).astype(PT_atrR.get_fdata().dtype) * 152
+#            PT_atrR_d_er = cv2.erode(PT_atrR_d,kernel,iterations=1)
             PT_atrR_d_mio = ( PT_atrR_d - PT_atrR_d_er ) * 182 / 152   # *156 miocardio, *51 corazon, ¿etiqueta nueva?
             PT_atrR_d = PT_atrR_d * 192 / 152
         
@@ -1008,22 +1011,24 @@ def PTstruPTyTS(barename,args,fakeimg):
             PT_venL_d = PT_venL.get_fdata() * 51
         else:
             PT_venL_d = PT_venL.get_fdata() * 153
-            PT_venL_d_er = cv2.erode(PT_venL_d,kernelm,iterations=3)
-            PT_venL_d_mio = ( PT_venL_d - PT_venL_d_er ) * 156 / 153
-            PT_venL_d = cv2.erode(PT_venL_d,kernel,iterations=1) * 193 / 153
+            PT_venL_d_er = ndimage.binary_erosion(PT_venL.get_fdata(),structure=np.ones((3,3,3)),iterations=3).astype(PT_venL.get_fdata().dtype) * 156
+#            PT_venL_d_er = cv2.erode(PT_venL_d,kernelm,iterations=3)
+            PT_venL_d_mio = ( PT_venL_d - PT_venL_d_er ) * 156 / 153  ## No 186, el miocardio principal esta asignado como 156
+#            PT_venL_d = cv2.erode(PT_venL_d,kernel,iterations=1) * 193 / 153
         
         PT_venR = nib.load(pwdspt+'/'+barename+'/Ventricle_R.nii.gz')
         if args.fheart == True:
             PT_venR_d = PT_venR.get_fdata() * 51
         else:
             PT_venR_d = PT_venR.get_fdata() * 154
-            PT_venR_d_er = cv2.erode(PT_venR_d,kernel,iterations=1)
+            PT_venR_d_er = ndimage.binary_erosion(PT_venR.get_fdata(),structure=np.ones((3,3,3)),iterations=1).astype(PT_venR.get_fdata().dtype) * 154
+#            PT_venR_d_er = cv2.erode(PT_venR_d,kernel,iterations=1)
             PT_venR_d_mio = ( PT_venR_d - PT_venR_d_er ) * 184 / 154   # *156 miocardio, *51 corazon, ¿etiqueta nueva?
-            PT_venR_d = PT_venR_d * 194 / 154
+#            PT_venR_d = PT_venR_d * 194 / 154
 
         PT_h_mask_d = PT_h_d
         PT_ch_mask_d = PT_atrL_d_er + PT_atrR_d_er + PT_venL_d_er + PT_venR_d_er
-        PT_ch2_mask_d = PT_atrL_d + PT_atrR_d + PT_venL_d + PT_venR_d
+#        PT_ch2_mask_d = PT_atrL_d + PT_atrR_d + PT_venL_d + PT_venR_d
         PT_mio_mask_d = PT_atrL_d_mio + PT_atrR_d_mio + PT_venL_d_mio + PT_venR_d_mio
 
         
@@ -1033,8 +1038,8 @@ def PTstruPTyTS(barename,args,fakeimg):
         PT_ch_masked_img = nib.Nifti1Image(PT_ch_mask_d,PT_affine)
         nib.save(PT_ch_masked_img,pwdspt+'/PT_'+barename+'_ch.nii.gz')
         
-        PT_ch2_masked_img = nib.Nifti1Image(PT_ch2_mask_d,PT_affine)
-        nib.save(PT_ch2_masked_img,pwdspt+'/PT_'+barename+'_ch2.nii.gz')
+#        PT_ch2_masked_img = nib.Nifti1Image(PT_ch2_mask_d,PT_affine)
+#        nib.save(PT_ch2_masked_img,pwdspt+'/PT_'+barename+'_ch2.nii.gz')
         
         PT_mio_masked_img = nib.Nifti1Image(PT_mio_mask_d,PT_affine)
         nib.save(PT_mio_masked_img,pwdspt+'/PT_'+barename+'_mio.nii.gz')
@@ -1047,72 +1052,3 @@ def PTstruPTyTS(barename,args,fakeimg):
         nib.save(fakeimg,pwdspt+'/PT_'+barename+'_F_ch.nii.gz')
         gc.collect()
         
-
-
-# ACTUALMENTE, ESTA SUBRUTINA NO HACE NADA
-def PTvalv_eroded(barename,args,fakeimg):
-
-#    pwdspt = os.getcwd()+'/segms/PT/'
-    if os.path.exists(pwdspt+'/'+barename):
-        print('Preprocessing PT-valves for ' + barename)
-
-        PT_miV = nib.load(pwdspt+'/'+barename+'/Valve_Mitral.nii.gz')  # left atr - ventr
-        PT_affine = PT_miV.affine
-        if args.hvalves == True:
-            PT_miV_d = PT_miV.get_fdata() * 167
-        if args.fheart == True:
-            PT_miV_d = PT_miV.get_fdata() * 51
-        if args.fheart != True and args.hvalves != True:
-            PT_miV_d = PT_miV.get_fdata() * 0
-
-        PT_triV = nib.load(pwdspt+'/'+barename+'/Valve_Tricuspid.nii.gz') # right atr - ventr
-        if args.hvalves == True:
-            PT_triV_d = PT_triV.get_fdata() * 168
-        if args.fheart == True:
-            PT_triV_d = PT_triV.get_fdata() * 51
-        if args.fheart != True and args.hvalves != True:
-            PT_triV_d = PT_triV.get_fdata() * 0
-
-        PT_aV = nib.load(pwdspt+'/'+barename+'/Valve_Aortic.nii.gz')
-        if args.hvalves == True:
-            PT_aV_d = PT_aV.get_fdata() * 169
-        if args.fheart == True:
-            PT_aV_d = PT_aV.get_fdata() * 51
-        if args.fheart != True and args.hvalves != True:
-            PT_aV_d = PT_aV.get_fdata() * 0
-
-        PT_pV = nib.load(pwdspt+'/'+barename+'/Valve_Pulmonic.nii.gz')
-        if args.hvalves == True:
-            PT_pV_d = PT_pV.get_fdata() * 170
-        if args.fheart == True:
-            PT_pV_d = PT_pV.get_fdata() * 51
-        if args.fheart != True and args.hvalves != True:
-            PT_pV_d = PT_pV.get_fdata() * 0
-
-        PT_SCN = nib.load(pwdspt+'/'+barename+'/CN_Sinoatrial.nii.gz')
-        if args.hvalves == True:
-            PT_SCN_d = PT_SCN.get_fdata() * 171
-        if args.fheart == True:
-            PT_SCN_d = PT_SCN.get_fdata() * 51
-        if args.fheart != True and args.hvalves != True:
-            PT_SCN_d = PT_SCN.get_fdata() * 0
-
-        PT_ACN = nib.load(pwdspt+'/'+barename+'/CN_Atrioventricular.nii.gz')
-        if args.hvalves == True:
-            PT_ACN_d = PT_ACN.get_fdata() * 172
-        if args.fheart == True:
-            PT_ACN_d = PT_ACN.get_fdata() * 51
-        if args.fheart != True and args.hvalves != True:
-            PT_ACN_d = PT_ACN.get_fdata() * 0
-
-        PT_VyCN_mask_d = PT_triV_d + PT_miV_d + PT_aV_d + PT_pV_d + PT_SCN_d + PT_ACN_d  #   SOLAPAN TANTO CON hart COMO con h
-
-        PT_VyCN_masked_img = nib.Nifti1Image(PT_VyCN_mask_d,PT_affine)
-        nib.save(PT_VyCN_masked_img,pwdspt+'/prePT_'+barename+'_VyCN.nii.gz')
-        
-        gc.collect()
-
-    else:
-        print('path to: '+pwdspt+'/'+barename+" does not exist, creating fake files")
-        nib.save(fakeimg,pwdspt+'/prePT_'+barename+'_F_VyCN.nii.gz')
-        gc.collect()

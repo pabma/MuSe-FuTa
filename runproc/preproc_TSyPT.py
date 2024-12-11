@@ -42,21 +42,20 @@ TS_body(barefile,fakeimg)
 TS_bronc(barefile,fakeimg)
 
 PTlungs(barefile,fakeimg)
-PTstru(barefile,args,fakeimg)
-#PTstruPTyTS(barefile,args,fakeimg)
+#PTstru(barefile,args,fakeimg)
+PTstruPTyTS(barefile,args,fakeimg)
 PTarte(barefile,args,fakeimg)
 PTvalv(barefile,args,fakeimg)
-#PTvalv_eroded(barefile,args,fakeimg)
 
 PTmix_1(barefile)
 PTmix_2(barefile)
 
 MO_pulart(barefile)
 
-#for model in models:
-#    MOProc(barefile,args,fakeimg,model)
+##for model in models:
+##    MOProc(barefile,args,fakeimg,model)
 
-#MOmix_1(barefile)
-#MOmix_2(barefile)
+##MOmix_1(barefile)
+##MOmix_2(barefile)
 
 gc.collect()
