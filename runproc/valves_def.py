@@ -27,6 +27,36 @@ def get_plane_equation(P, Q, R):
     c = a1 * b2 - b1 * a2 
     d = (- a * x1 - b * y1 - c * z1) 
     return a, b, c, d
+    
+    
+def into_spheroid(xi,yi,zi,c_coordi,ax1,ax2,ax3):
+    point = np.array([xi,yi,zi])
+    r_centered = point - c_coordi
+    
+    mat_1 = np.column_stack([r_centered,ax2,ax3])
+    mat_2 = np.column_stack([ax1,r_centered,ax3])
+    mat_3 = np.column_stack([ax1,ax2,r_centered])
+    mat_r = np.column_stack([ax1,ax2,ax3])
+    
+    left_side = (np.linalg.det(mat_1))**2 + (np.linalg.det(mat_2))**2 + (np.linalg.det(mat_3))**2
+#    print('ls ',left_side)
+    right_side = (np.linalg.det(mat_r))**2
+#    print('rs ',right_side)
+    if left_side <= right_side:
+        return True
+    else:
+        return False
+        
+    gc.collect()
+    
+def spheroid_axis_lengths(inertia_tensor_eigvals):
+    axis_lengths = []
+    for ax in range(2, -1, -1):
+        w = sum(v * -1 if i == ax else v for i, v in enumerate(inertia_tensor_eigvals))
+        axis_lengths.append(sqrt(10 * w))
+    return axis_lengths
+    
+    gc.collect()
 
 def matrot_3d(v0,v1,v2,theta):
     v = np.array([v0,v1,v2])
@@ -79,8 +109,16 @@ def valve_split(barefile,valve_list):
         for rvalve in reg_valve:
             print(f'  Bounding box: {rvalve.centroid}')
             print(f'  Major axis length: {rvalve.axis_major_length}')
+            print(f'  Inert_tensors: {rvalve.inertia_tensor_eigvals}')
+            
+        Axlen_all = spheroid_axis_lengths(rvalve.inertia_tensor_eigvals)
+        ax_0 = Axlen_all[0]*pcax_v[0] / 2
+        ax_1 = Axlen_all[1]*pcax_v[1] / 2
+        ax_2 = Axlen_all[0]*pcax_v[2] / 2
+        
         c_coord = rvalve.centroid  # centroid coordinates
         c_coord_int =(int(round(c_coord[0])),int(round(c_coord[1])),int(round(c_coord[2])))
+        
         maxis_l = rvalve.axis_major_length
         maxis_l_int = int(round(rvalve.axis_major_length))
         p1_v = c_coord
@@ -88,11 +126,21 @@ def valve_split(barefile,valve_list):
         p3_v = c_coord + pcax_v[2,:]
         p_v_a, p_v_b, p_v_c, p_v_d = get_plane_equation(p1_v,p2_v,p3_v)
         img_clone_d = np.zeros((img.shape[0],img.shape[1],img.shape[2]))
+
         for x in range(c_coord_int[0]-maxis_l_int,c_coord_int[0]+maxis_l_int):
             for y in range(c_coord_int[1]-maxis_l_int,c_coord_int[1]+maxis_l_int):
                 for z in range(c_coord_int[2]-maxis_l_int,c_coord_int[2]+maxis_l_int):
                     if (p_v_a * x + p_v_b * y + p_v_c * z + p_v_d >= 0) and img_d[x,y,z]==valve:
                         img_clone_d[x,y,z] = valve
+                    if into_spheroid(x,y,z,c_coord,ax_0,ax_1,ax_2) == True:
+                        if img_d[x,y,z] == 181:
+                            img_d[x,y,z] = 151
+                        if img_d[x,y,z] == 182:
+                            img_d[x,y,z] = 152
+                        if img_d[x,y,z] == 156:
+                            img_d[x,y,z] = 153
+                        if img_d[x,y,z] == 184:
+                            img_d[x,y,z] = 154
                     
         valve_2 = valve+10
     
@@ -130,8 +178,10 @@ def valve_rot(barefile,angle,valve_list):
         for rvalve in reg_valve:
             print(f'  Centroid_r: {rvalve.centroid}')
             print(f'  Major axis length_r: {rvalve.axis_major_length}')
+
         c_coord = rvalve.centroid  # centroid coordinates
         c_coord_int =(int(round(c_coord[0])),int(round(c_coord[1])),int(round(c_coord[2])))
+        
         maxis_l = rvalve.axis_major_length
         maxis_l_int = int(round(rvalve.axis_major_length))
         v0_valve = pcax_v[0,:] * maxis_l / 2
