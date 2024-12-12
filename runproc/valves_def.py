@@ -101,7 +101,7 @@ def valve_split(barefile,valve_list):
     
         img_d = img_d - valve_d
         
-    valve_mix_1 = nib.Nifti1Image(img_d + valve_mask_d, img_affine)
+    valve_mix_1 = nib.Nifti1Image(img_d + valve_mask_d, img.affine)
     nib.save(valve_mix_1,pwd+'/mix/'+barefile+'_mix_1.nii.gz')
 
 #    return img_d, valve_mask_d, img.affine
