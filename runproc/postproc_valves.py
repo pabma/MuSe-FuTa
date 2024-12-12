@@ -21,16 +21,16 @@ print(barefile)
 
 valve_list = [167,168]
 
-img_d, valve_mask_d, img_affine = valve_split(barefile,valve_list)           #### RECORDAR DESCOMENTAR
+#img_d, valve_mask_d, img_affine = valve_split(barefile,valve_list)
+valve_split(barefile,valve_list)
 
-valve_mix_1 = nib.Nifti1Image(img_d + valve_mask_d, img_affine)           #### RECORDAR DESCOMENTAR
-nib.save(valve_mix_1,pwd+'/mix/'+barefile+'_mix_1.nii.gz')           #### RECORDAR DESCOMENTAR
 
 
 
 #########################################################
 # A PARTIR DE AQUI, GIRO DE VALVULAS
 #########################################################
+# Comentado para que no se meta en medio del remozado de las valvulas.
 pi = math.pi
 
 angles = [pi/4,pi/3]
