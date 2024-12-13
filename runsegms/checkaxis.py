@@ -11,8 +11,6 @@ from scipy.ndimage import zoom
 
 gc.collect()
 
-## resample_volume and the commented parts are related with the try to resize the image to 1 mm spacing and zoom it to have a image of the same physical size. For that, you first need to resample the image with SimpleITK, and then zoom the image with scipy
-
 ##def resample_volume(volume_path, interpolator = sitk.sitkLinear, new_spacing = [1.0, 1.0, 1.0]):
 ##    volume = sitk.ReadImage(volume_path)
 ##    original_spacing = volume.GetSpacing()
@@ -22,6 +20,7 @@ gc.collect()
 ##                         volume.GetOrigin(), new_spacing, volume.GetDirection(), 0,
 ##                         volume.GetPixelID())
 
+# This will resize the image to a 1 mm³ spacing and the ncheck if the orientation is the right one for Moose to work properly.
 
 pwd = os.getcwd()
 
@@ -32,11 +31,12 @@ barename = file.replace(".nii.gz","")
 
 ##img = resample_volume(pwd+'/'+file)
 ##sitk.WriteImage(img, pwd+'/sitk_'+file)
-
 #imgn = nib.load(pwd+'/'+file)
-img = nib.load(pwd+'/'+file)
 #imgn = nib.load(pwd+'/sitk_'+file)
 #imgn_d = imgn.get_fdata()
+
+
+img = nib.load(pwd+'/'+file)
 
 print('original image shape ',img.shape)
 
@@ -45,8 +45,6 @@ pxdm = img.header['pixdim']
 #print('sitk pixdim', imgn.header['pixdim'])
 
 print('zooming '+barename)
-#imgn_d_z = zoom(imgn_d,(pxdm[1],pxdm[2],pxdm[3]))
-#imgn_z = nib.Nifti1Image(imgn_d_z,imgn.affine)
 
 seg_data = img.get_fdata().astype(np.int32)
 
@@ -64,8 +62,6 @@ new_affine[2,2] = new_spacing[2] * (new_affine[2,2] / abs(new_affine[2,2]))
 
 new_img = nib.Nifti1Image(resampled_data, new_affine)
 print('new image shape ',new_img.shape)
-#pxdm_n = new_img.header['pixdim']
-#print('zoomed pixdim',pxdm_n)
 
 imgn_aff = new_img.affine
 imgn_axcod = nib.aff2axcodes(imgn_aff)
