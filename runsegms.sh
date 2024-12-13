@@ -1,4 +1,5 @@
-# Requiere poner las imagenes nifti (*.nii.gz) con nombre iniciado en ct_* en el directorio en el cual se vaya a usar esta aplicacion, que correra las tres aplicaciones (TotalSegmentator, Platipy y Moose) y despues movera las imágenes a un directorio llamado used. Las imagenes originales deben ser mantenidas en ese directorio para que el resto de la aplicacion (preprocesado y fusion de estructuras) funcione. Para usarla, escribir "sh runsegms.sh"
+# It requieres to put the nifti images in *.nii.gz format, and beggining with CT_* in the main folder from which this sofware will be run. It will run the apps (TotalSegmentator, Platipy and Moose). It will put the original images in a folder called 'orig' if there is need to resize or reorient them, and the segmented images in a folder called 'used'. 'used' is a very important folder for this software. To run in write "sh runsegms.sh" in a prompt.
+
 #!/bin/bash
 
 pwd
@@ -6,7 +7,7 @@ if [ ! -d used ]; then
 	mkdir used
 fi
 
-if [ ! -d reoriented ]; then
+if [ ! -d orig/reoriented ]; then
 	mkdir -p orig/reoriented
 fi
 
@@ -20,11 +21,11 @@ if [ ! -d segms/MO/MO ]; then
 	mkdir -p segms/MO/MO
 fi
 
-for f in *.gz; do
-	python3 checkaxis.py $f
+for f in *.nii.gz; do
+	python3 runsegms/checkaxis.py $f
 done
 
-for f in *.gz; do
+for f in *.nii.gz; do
 	echo $f
 	echo ${f%.nii.gz}
 	TotalSegmentator -i $f -o segms/TS/TS/${f%.nii.gz} --ml
@@ -33,7 +34,7 @@ for f in *.gz; do
 ##	TotalSegmentator -i $f -o segms/TS/TS/${f%.nii.gz}_ca --task coronary_arteries --ml
 	platipy segmentation cardiac -o segms/PT/${f%.nii.gz} $f
 	platipy segmentation bronchus -o segms/PT/${f%.nii.gz} $f
-	python3 moose3.py $f
+	python3 runsegms/moose3.py $f
 	mv $f used
 done
 
