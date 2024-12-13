@@ -44,9 +44,9 @@ STEP 2) To run the processing and assembling of the segmented images.
       - --hvalves .- Will include the different heart valves (mitral, tricuspid, aortic and pulmonary) into the assembled image (Important choice for another part of this project which will simulate the heartbeat).
    - Enjoy some time doing anything else while the software is assembling the segmented images.
 
-This will create a directory called 'mix', where the ensembled images will be put, ready to be used in the postprocessing. -- And, right now, several images with the valves rotated by a certain degree into your main directory.
+This will create a directory called 'mix', where the ensembled images will be put, ready to be used in the postprocessing. There should be a mix_0 image, with all the basic structures and thinned valves in regards of its original shape, and a mix_1 image, in which some postprocessing has been done, like splitting the valves and cleaning the Miocardium around them. -- And, right now, several images with the valves rotated by a certain degree into your main directory.
 
-The ensembled image will be created partly using the 'mode' between the different segmented model images for each voxel, plus some specifically picked up choices to assure the presence of certain structures, like the valves, which show up only in one segmentator model. 
+The ensembled image will be created partly using the 'mode' between the different segmented model images for each voxel, plus some specifically picked up choices to assure the presence of certain structures, like the valves, which show up only in one segmentator model.
 
 STEP 3) In order to generate the npz files, which will be used to add a map of properties and simulate the ultrasound image.
 
