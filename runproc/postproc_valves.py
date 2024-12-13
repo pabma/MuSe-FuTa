@@ -19,8 +19,10 @@ file = args.Output
 barefile = file.replace("used/","")
 print(barefile)
 
+#Only Mitral and Tricuspid valves for now, aortic and pulmonary valves (169, 170) could be added too.
 valve_list = [167,168]
 
+# This subroutine will both split the valves and clean the nearest miocardium muscle near it.
 #img_d, valve_mask_d, img_affine = valve_split(barefile,valve_list)
 valve_split(barefile,valve_list)
 
@@ -30,7 +32,6 @@ valve_split(barefile,valve_list)
 #########################################################
 # A PARTIR DE AQUI, GIRO DE VALVULAS
 #########################################################
-# Comentado para que no se meta en medio del remozado de las valvulas.
 pi = math.pi
 
 angles = [pi/4,pi/3]

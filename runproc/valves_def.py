@@ -13,7 +13,7 @@ gc.collect()
 
 pwd = os.getcwd()
 
-def get_plane_equation(P, Q, R):  
+def get_plane_equation(P, Q, R):  # To split the valves.
     x1, y1, z1 = P
     x2, y2, z2 = Q
     x3, y3, z3 = R
@@ -29,8 +29,8 @@ def get_plane_equation(P, Q, R):
     d = (- a * x1 - b * y1 - c * z1) 
     return a, b, c, d
     
-    
-def into_spheroid(xi,yi,zi,c_coordi,ax1,ax2,ax3):
+# To remove miocardium placed inside the spheroid volume given by the valve, in roder to give more depth, I have used the semimajor valve axis for two of the spheroid axes.
+def into_spheroid(xi,yi,zi,c_coordi,ax1,ax2,ax3):   
     point = np.array([xi,yi,zi])
     r_centered = point - c_coordi
     
@@ -49,8 +49,9 @@ def into_spheroid(xi,yi,zi,c_coordi,ax1,ax2,ax3):
         return False
         
     gc.collect()
-    
-def spheroid_axis_lengths(inertia_tensor_eigvals):
+
+# Length for each of the ellipsoid axes which define the valve.
+def ellipsoid_axis_lengths(inertia_tensor_eigvals):
     axis_lengths = []
     for ax in range(2, -1, -1):
         w = sum(v * -1 if i == ax else v for i, v in enumerate(inertia_tensor_eigvals))
@@ -59,7 +60,7 @@ def spheroid_axis_lengths(inertia_tensor_eigvals):
     
     gc.collect()
 
-def matrot_3d(v0,v1,v2,theta):
+def matrot_3d(v0,v1,v2,theta):  # Rodrigues matrix to rotate elements.
     v = np.array([v0,v1,v2])
     v_len = np.linalg.norm(v)
     if v_len==0:
@@ -72,8 +73,9 @@ def matrot_3d(v0,v1,v2,theta):
     rotmat_3d = np.identity(3) + W * np.sin(theta) + np.dot(W, W) * (1.0 - np.cos(theta))
     
     return rotmat_3d
-
-def rot_elem(x_o,y_o,z_o,v_0,v_1,v_2,vec,theta):
+    
+# Calculate the new position of each voxel for the rotated valve.
+def rot_elem(x_o,y_o,z_o,v_0,v_1,v_2,vec,theta):    
     p0 = np.array([x_o,y_o,z_o])
     v0 = p0 - vec #c_coord_miV
     m = matrot_3d(v_0,v_1,v_2,theta)#pcax_miV[1,0],pcax_miV[1,1],pcax_miV[1,2],angle)
@@ -82,6 +84,7 @@ def rot_elem(x_o,y_o,z_o,v_0,v_1,v_2,vec,theta):
     
     return p1
 
+# Thins the valves before assembling them into the mixed file.
 def thin_valve(mask):
     # CON cv2
     #eroded_mask = cv2.erode(mask,np.ones((3,3),np.uint8,iterations=2)
@@ -93,6 +96,7 @@ def thin_valve(mask):
 
     gc.collect()
 
+# Subroutine which will both split the valves and clean the miocardium around them.
 def valve_split(barefile,valve_list):
     img = nib.load(pwd+'/mix/'+barefile+'_mix_0.nii.gz')
     img_d = img.get_fdata()
@@ -112,7 +116,7 @@ def valve_split(barefile,valve_list):
             print(f'  Major axis length: {rvalve.axis_major_length}')
             print(f'  Inert_tensors: {rvalve.inertia_tensor_eigvals}')
             
-        Axlen_all = spheroid_axis_lengths(rvalve.inertia_tensor_eigvals)
+        Axlen_all = ellipsoid_axis_lengths(rvalve.inertia_tensor_eigvals)
         ax_0 = Axlen_all[0]*pcax_v[0] / 2
         ax_1 = Axlen_all[1]*pcax_v[1] / 2
         ax_2 = Axlen_all[0]*pcax_v[2] / 2
@@ -156,7 +160,7 @@ def valve_split(barefile,valve_list):
 #    return img_d, valve_mask_d, img.affine
     gc.collect()
 
-
+# Rotate the valves and put the rotated ones in a new file, this can be modified and expanded to give an output and include it into another segmented image.
 def valve_rot(barefile,angle,valve_list):
 
     print('angle_rad',angle)
@@ -200,11 +204,11 @@ def valve_rot(barefile,angle,valve_list):
                     if img1_d[x,y,z]==valve_2:
                         p1 = rot_elem(x,y,z,pcax_v[1,0],pcax_v[1,1],pcax_v[1,2],p_valve_plus,angle)
                         valve_rot_d_b[int(round(p1[0])),int(round(p1[1])),int(round(p1[2]))] = 1.0
-        # CON cv2
+        # Closiong with cv2
         #kernel = np.ones((3,3),np.uint8)
         #valve_rot_d_a = cv2.morphologyEx(valve_rot_d_a, cv2.MORPH_CLOSE, kernel)
         
-        # CON scipy
+        # Closiong with scipy
         valve_rot_d_a = ndimage.binary_closing(valve_rot_d_a, structure=np.ones((3,3,3))).astype(valve_rot_d_a.dtype) * valve
         valve_rot_d_b = ndimage.binary_closing(valve_rot_d_b, structure=np.ones((3,3,3))).astype(valve_rot_d_a.dtype) * valve_2
     
