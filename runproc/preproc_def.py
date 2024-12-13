@@ -7,7 +7,7 @@ import cv2
 from valves_def import thin_valve
 from scipy import ndimage
 
-#ESTRUCTURAS PARA TOTALSEGMENTATOR
+# Structures for TotalSegmentator
 strut = [10,11,12,13,14,51,61,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115]
 #strut_orig = [10,11,12,13,14,61,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115]
 invstrut = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,52,53,54,55,56,57,58,59,60,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,116,117]
@@ -19,7 +19,7 @@ pwdsts = os.getcwd()+'/segms/TS/'
 pwdspt = os.getcwd()+'/segms/PT'
 pwdsmo = os.getcwd()+'/segms/MO/'
 
-################## COMIENZA TOTALSEGMENTATOR
+################## TOTALSEGMENTATOR SEGMENTED IMAGES PREPROCESSING BEGINS
 
 def TS_total(TSbarename,args,fakeimg):
 
@@ -43,7 +43,7 @@ def TS_total(TSbarename,args,fakeimg):
 #                    TS_img_d = TS_img_d + (TS_d == 61) * TS_d * 51 / 61
 #                if args.fheart != True:
 #                    TS_img_d = TS_img_d + (TS_d == 61) * TS_d
-            if st == 51:  ## realmente no seria necesario, pero para llamar la atencion sobre esto, corazon de TS retirado por que daba problemas con la arteria pulmonar.
+            if st == 51:  ## TS HEART REMOVED TO AVOID ISSUES WITH THE PULMONARY ARTERY (WHICH TS INCLUDES AS HEART)
                 TS_img_d = TS_img_d + (TS_d == 51) * TS_d * 0
             if st in fribs:
                 TS_img_d = TS_img_d + (TS_d == st) * TS_d * 159 / st
@@ -116,11 +116,10 @@ def TS_bronc(TSbarename,fakeimg):
 
 
 
+############# HERE BEGINS PREPROCESSING OF PLATIPY SEGMENTATOR FILES.
 
-############# COMIENZA PLATIPY
 
-
-        
+# relavel of the lungs and air vessels from the original PT segmented files.
 def PTlungs(barename,fakeimg):
     
 #    pwdspt = os.getcwd()+'/segms/PT/'
@@ -156,7 +155,7 @@ def PTlungs(barename,fakeimg):
         gc.collect()
 
 
-
+# relavel of the coronary structures (full heart and chambers) from the original PT segmented files.
 def PTstru(barename,args,fakeimg):
 
 #    pwdspt = os.getcwd()+'/segms/PT/'
@@ -210,7 +209,7 @@ def PTstru(barename,args,fakeimg):
         gc.collect()
         
 
-
+# relavel of the coronary arteries from the original PT segmented files.
 def PTarte(barename,args,fakeimg):
 
 #    pwdspt = os.getcwd()+'/segms/PT/'
@@ -264,7 +263,7 @@ def PTarte(barename,args,fakeimg):
         gc.collect()
         
         
-        
+# relavel and thinning of the valves from the original PT segmented files.
 def PTvalv(barename,args,fakeimg):
 
 #    pwdspt = os.getcwd()+'/segms/PT/'
@@ -306,6 +305,7 @@ def PTvalv(barename,args,fakeimg):
         if args.fheart != True and args.hvalves != True:
             PT_pV_d = PT_pV.get_fdata() * 0
 
+# Removed as they were not really needed for this work and were creating some issues later on in the US images.
 #        PT_SCN = nib.load(pwdspt+'/'+barename+'/CN_Sinoatrial.nii.gz')
 #        if args.hvalves == True:
 #            PT_SCN_d = PT_SCN.get_fdata() * 171
@@ -335,7 +335,7 @@ def PTvalv(barename,args,fakeimg):
         gc.collect()
 
 
-
+# To reduce the amount of files feeded into the mix and reduce computing time and memory issues.
 def PTmix_1(barename):
     print('Adding Platipy lungs and valves')
     if os.path.exists(pwdspt+'/prePT_'+barename+'_l.nii.gz'):
@@ -354,7 +354,7 @@ def PTmix_1(barename):
     gc.collect()
 
 
-
+# To reduce the amount of files feeded into the mix and reduce computing time and memory issues.
 def PTmix_2(barename):
     print('Adding Platipy bronchus and heart arteries')
     if os.path.exists(pwdspt+'/prePT_'+barename+'_b.nii.gz'):
@@ -375,10 +375,10 @@ def PTmix_2(barename):
 
 
 
-########### COMIENZA MOOSE
+########### MOOSE PRE-PROCESSING BEGINS
 
 
-
+#All the Moose models are included in this subroutine.
 def MOProc(MObarename,args,fakeimg,model):  # Abre cada uno de los modelos de MOOSE con estructuras interesantes y los reorganiza para asignar a cada estructura una capa propia equivalente a una de TS o a alguna de las nuevas que vamos a introducir.
     
     
@@ -898,7 +898,7 @@ def MOProc(MObarename,args,fakeimg,model):  # Abre cada uno de los modelos de MO
             gc.collect()
             
             
-
+# To reduce the amount of files feeded into the mix and reduce computing time and memory issues.
 def MOmix_1(barename):
     print('Adding Moose3 models all_bones_v1, ALPACA, digestive and muscles')
     if os.path.exists(pwdsmo+'preMO_'+barename+'_b.nii.gz'):
@@ -926,7 +926,7 @@ def MOmix_1(barename):
     gc.collect()
     
     
-    
+# To reduce the amount of files feeded into the mix and reduce computing time and memory issues.
 def MOmix_2(barename):
     print('Adding Moose3 models cardiac and peripheral_bones')
     if os.path.exists(pwdsmo+'preMO_'+barename+'_c.nii.gz'):
@@ -945,35 +945,11 @@ def MOmix_2(barename):
     
     gc.collect()
     
-############################################### FIN DEL ARCHIVO ORIGINAL
+############################################### END OF ORIGINAL FILE for mix_img.py
 
-## SUBRUTINA MODIFICADA PARA COGER SOLO LA ARTERIA PULMONAR Y PODER PONERLA EN EL MIX SIN QUE DE PROBLEMAS EL CORAZON.
-def MO_pulart(MObarename):
-                
-    if os.path.exists(pwdsmo+'MO/clin_CT_cardiac_segmentation_'+MObarename+'.nii.gz'):
-        print('Preprocessing Moosev3 pulmonary artery for '+MObarename)
+## Next parts is to be used only if we do not use Moose at full, at least for now, Moose might be readded in the future.
 
-        MO_c = nib.load(pwdsmo+'MO/clin_CT_cardiac_segmentation_'+MObarename+'.nii.gz')
-        MO_c_d = MO_c.get_fdata()
-        MO_c_affine = MO_c.affine
-                
-        MO_c_pula = (MO_c_d == 13) * MO_c_d * 155 / 13
-                
-        MO_c_masked_img = nib.Nifti1Image(MO_c_pula,MO_c_affine)
-        nib.save(MO_c_masked_img,pwdsmo+'MO_'+MObarename+'_pa.nii.gz')
-                    
-        gc.collect()
-                    
-    else:
-        print('path to: '+pwdsmo+'MO/clin_CT_cardiac_segmentation_'+MObarename+'.nii.gz does not exist, creating fake files')
-        nib.save(fakeimg,pwdsmo+'preMO_'+MObarename+'_F_c.nii.gz')
-        gc.collect()
-
-
-## A PARTIR DE AQUI, SI SOLO UTILIZAMOS PLATIPY Y TOTALSEGMENTATOR, MODIFICACION DE LAS VALVULAS, QUIZAS USABLE TAMBIEN PARA OTROS CASOS
-
-
-# GENERA ESTRUCTURAS DE MIOCARDIO Y MUSCULO CARDIACO EN TORNO A LAS CAMARAS CARDIACAS PARA PLATIPY, QUE SEGMENTA EL CONJUNTO CAMARA+MUSCULO DE CADA REGION CONJUNTAMENTE.
+# Also generates Miocardium and muscle heart around the structures given by Platipy, which gives the chamber+muscle together
 def PTstruPTyTS(barename,args,fakeimg):
     
 #    kernel = np.ones((2,2),np.uint8)
@@ -994,7 +970,7 @@ def PTstruPTyTS(barename,args,fakeimg):
             PT_atrL_d_er = ndimage.binary_erosion(PT_atrL.get_fdata(),structure=np.ones((3,3,3)),iterations=1).astype(PT_atrL.get_fdata().dtype) * 151
 #            PT_atrL_d_er = cv2.erode(PT_atrL_d,kernel,iterations=1)
             PT_atrL_d_mio = ( PT_atrL_d - PT_atrL_d_er ) * 181 / 151   # *156 miocardio, *51 corazon, ¿etiqueta nueva?
-#            PT_atrL_d = PT_atrL_d * 191 / 151   # comentada puesto que no la estaba usando
+            
         
         PT_atrR = nib.load(pwdspt+'/'+barename+'/Atrium_R.nii.gz')
         if args.fheart == True:
@@ -1004,17 +980,15 @@ def PTstruPTyTS(barename,args,fakeimg):
             PT_atrR_d_er = ndimage.binary_erosion(PT_atrR.get_fdata(),structure=np.ones((3,3,3)),iterations=1).astype(PT_atrR.get_fdata().dtype) * 152
 #            PT_atrR_d_er = cv2.erode(PT_atrR_d,kernel,iterations=1)
             PT_atrR_d_mio = ( PT_atrR_d - PT_atrR_d_er ) * 182 / 152   # *156 miocardio, *51 corazon, ¿etiqueta nueva?
-            PT_atrR_d = PT_atrR_d * 192 / 152
         
         PT_venL = nib.load(pwdspt+'/'+barename+'/Ventricle_L.nii.gz')
         if args.fheart == True:
             PT_venL_d = PT_venL.get_fdata() * 51
         else:
             PT_venL_d = PT_venL.get_fdata() * 153
-            PT_venL_d_er = ndimage.binary_erosion(PT_venL.get_fdata(),structure=np.ones((3,3,3)),iterations=3).astype(PT_venL.get_fdata().dtype) * 156
+            PT_venL_d_er = ndimage.binary_erosion(PT_venL.get_fdata(),structure=np.ones((3,3,3)),iterations=3).astype(PT_venL.get_fdata().dtype) * 153
 #            PT_venL_d_er = cv2.erode(PT_venL_d,kernelm,iterations=3)
             PT_venL_d_mio = ( PT_venL_d - PT_venL_d_er ) * 156 / 153  ## No 186, el miocardio principal esta asignado como 156
-#            PT_venL_d = cv2.erode(PT_venL_d,kernel,iterations=1) * 193 / 153
         
         PT_venR = nib.load(pwdspt+'/'+barename+'/Ventricle_R.nii.gz')
         if args.fheart == True:
@@ -1024,12 +998,11 @@ def PTstruPTyTS(barename,args,fakeimg):
             PT_venR_d_er = ndimage.binary_erosion(PT_venR.get_fdata(),structure=np.ones((3,3,3)),iterations=1).astype(PT_venR.get_fdata().dtype) * 154
 #            PT_venR_d_er = cv2.erode(PT_venR_d,kernel,iterations=1)
             PT_venR_d_mio = ( PT_venR_d - PT_venR_d_er ) * 184 / 154   # *156 miocardio, *51 corazon, ¿etiqueta nueva?
-#            PT_venR_d = PT_venR_d * 194 / 154
 
         PT_h_mask_d = PT_h_d
-        PT_ch_mask_d = PT_atrL_d_er + PT_atrR_d_er + PT_venL_d_er + PT_venR_d_er
+        PT_ch_mask_d = PT_atrL_d_er + PT_atrR_d_er + PT_venL_d_er + PT_venR_d_er + PT_atrL_d_mio + PT_atrR_d_mio + PT_venL_d_mio + PT_venR_d_mio
 #        PT_ch2_mask_d = PT_atrL_d + PT_atrR_d + PT_venL_d + PT_venR_d
-        PT_mio_mask_d = PT_atrL_d_mio + PT_atrR_d_mio + PT_venL_d_mio + PT_venR_d_mio
+#        PT_mio_mask_d = PT_atrL_d_mio + PT_atrR_d_mio + PT_venL_d_mio + PT_venR_d_mio
 
         
         PT_h_masked_img = nib.Nifti1Image(PT_h_mask_d,PT_affine)
@@ -1041,8 +1014,8 @@ def PTstruPTyTS(barename,args,fakeimg):
 #        PT_ch2_masked_img = nib.Nifti1Image(PT_ch2_mask_d,PT_affine)
 #        nib.save(PT_ch2_masked_img,pwdspt+'/PT_'+barename+'_ch2.nii.gz')
         
-        PT_mio_masked_img = nib.Nifti1Image(PT_mio_mask_d,PT_affine)
-        nib.save(PT_mio_masked_img,pwdspt+'/PT_'+barename+'_mio.nii.gz')
+#        PT_mio_masked_img = nib.Nifti1Image(PT_mio_mask_d,PT_affine)
+#        nib.save(PT_mio_masked_img,pwdspt+'/PT_'+barename+'_mio.nii.gz')
         
         gc.collect()
 
@@ -1052,3 +1025,25 @@ def PTstruPTyTS(barename,args,fakeimg):
         nib.save(fakeimg,pwdspt+'/PT_'+barename+'_F_ch.nii.gz')
         gc.collect()
         
+
+## This routine picks only the pulmonar artery from Moose and puts it in the assembled image after removing TotalSegmentator heart.
+def MO_pulart(MObarename):
+                
+    if os.path.exists(pwdsmo+'MO/clin_CT_cardiac_segmentation_'+MObarename+'.nii.gz'):
+        print('Preprocessing Moosev3 pulmonary artery for '+MObarename)
+
+        MO_c = nib.load(pwdsmo+'MO/clin_CT_cardiac_segmentation_'+MObarename+'.nii.gz')
+        MO_c_d = MO_c.get_fdata()
+        MO_c_affine = MO_c.affine
+                
+        MO_c_pula = (MO_c_d == 13) * MO_c_d * 155 / 13
+                
+        MO_c_masked_img = nib.Nifti1Image(MO_c_pula,MO_c_affine)
+        nib.save(MO_c_masked_img,pwdsmo+'MO_'+MObarename+'_pa.nii.gz')
+                    
+        gc.collect()
+                    
+    else:
+        print('path to: '+pwdsmo+'MO/clin_CT_cardiac_segmentation_'+MObarename+'.nii.gz does not exist, creating fake files')
+        nib.save(fakeimg,pwdsmo+'preMO_'+MObarename+'_F_c.nii.gz')
+        gc.collect()
