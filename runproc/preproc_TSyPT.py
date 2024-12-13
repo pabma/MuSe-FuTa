@@ -10,7 +10,7 @@ gc.collect()
 
 # Eliminated the models 'vertebrae', 'fast_vertebrae' as they are incompatible with something in the Platipy or TS segmentators
 # Eliminated the models 'fast_organs' and 'fast_cardiac' to avoid overcharge the processor in the creation of the mix file, also, they didn't got the best results
-# Eliminated the models 'body', 'body_composition' and 'PUMA4' as their output is currently bad.
+# Eliminated the models 'body', 'body_composition' and 'PUMA4' as their output is currently bad. Check later for possible updates on this models.
 
 models = ('lungs','organs','ribs','muscles','cardiac','digestive','all_bones_v1','PUMA','ALPACA', 'peripheral_bones')
 
