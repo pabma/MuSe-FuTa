@@ -25,10 +25,10 @@ pwdspt = os.getcwd()+'/segms/PT/'
 pwdsmo = os.getcwd()+'/segms/MO/'
 
 
-hstrut = [61,151,152,153,154,156,181,182,184]  # Estructuras principales dentro del corazon, auriculas, ventriculos, miocardio.
-hart = [162,163,164,165]  # Arterias coronarias, prioritarias sobre las estructuras si estan presentes, pero no sobre las valvulas.
-llobes = [10,11,12,13,14]  # Bronquios tendran prioridad sobre pulmones y lobulos pulmonares, en caso de que se quieran añadir.
-hvalv = [167,168,169,170]  # Valvulas cardiacas, maxima prioridad si están presentes.
+hstrut = [61,151,152,153,154,156,181,182,184]  # Main carcdiac structures.
+hart = [162,163,164,165]  # Coronary arteries, priorized over structures if they are present, but not over the valves.
+llobes = [10,11,12,13,14]  # Bronchii are prioritize over the lungs or lung lobes.
+hvalv = [167,168,169,170]  # Cardiac valves, maximum priority over anything else.
 
 def checklist(lis,tup):
     for hv in tup:
@@ -45,9 +45,9 @@ PTfiles = glob.glob(pwdspt+'PT_'+barename+'_*', recursive=True)
 MOfiles = glob.glob(pwdsmo+'MO_'+barename+'_*', recursive=True)
 #    TOTfiles = TSfiles+PTfiles+MOfiles
 PARfiles = TSfiles+PTfiles+MOfiles
-#print(PARfiles)    ### Para comprobar el orden de las capas, que estara en consonancia con el orden de los archivos. Index 0 will always be assigned to TotalSegmentator total segmentation
+#print(PARfiles)    ### To check the order of the tensors, which must be in concordance with the order in which the files are included. Index 0 will always be assigned to TotalSegmentator total segmentation. This might be used to assign a label to a voxel in a different way of what I use later on.
 
-# 0 = TS total, 1 = TS body, 2 = TS lung vessels, 3 = PT bronchus - heart arteries, 4 = PT lungs - valves, 5 = PT full heart, 6 = PT heart chambers
+# 0 = TS total, 1 = TS body, 2 = TS lung vessels, 3 = PT bronchus - heart arteries, 4 = PT lungs - valves, 5 = PT full heart, 6 = PT heart chambers, 7 = Moose pulmonary artery
 
 
 TSimg = nib.load(TSfile)
@@ -97,14 +97,14 @@ for x in range(0,all_img.shape[1]):
 
                 if 16 in d and (150 or 160) in d and checklist(d,llobes) != True:
                     res_img_d[x,y,z] = 16
-                if 16 in d and 150 in d and 160 not in d and checklist(d,llobes) == True:  ## REVISAR CUANDO MOOSE FUNCIONE BIEN
+                if 16 in d and 150 in d and 160 not in d and checklist(d,llobes) == True:
                     for i in range(0,fl):
                         if f[i] != 150:
                             g.append(f[i])
                     res_img_d[x,y,z] = st.mode(g)
                 if 160 in d and 16 not in d and (150 or 10 or 11 or 12 or 13 or 14) in d:
                     res_img_d[x,y,z] = 160
-                if 16 not in d and 160 not in d and 150 in d and checklist(d,llobes) == True:  ## REVISAR CUANDO MOOSE FUNCIONE BIEN
+                if 16 not in d and 160 not in d and 150 in d and checklist(d,llobes) == True:
                     for i in range(0,fl):
                         if f[i] != 150:
                             g.append(f[i])
@@ -124,7 +124,7 @@ for x in range(0,all_img.shape[1]):
                             res_img_d[x,y,z] = hv
                 if 155 in d and 51 in d:
                     res_img_d[x,y,z] = 155
-                # PARA QUE LAS VALVULAS AORTICA Y PULMONAR TENGAN UNA FORMA MAS INTERESANTE.
+                # To give both aortic and pulmonary valves a more fitting shape.
 #                if 169 in d and 52 in d:
 #                    res_img_d[x,y,z] = 52
 #                if 170 in d and 155 in d:
