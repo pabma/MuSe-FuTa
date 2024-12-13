@@ -7,6 +7,7 @@ import cv2
 from sklearn.decomposition import PCA
 from skimage.measure import label, regionprops
 from scipy import ndimage
+from math import sqrt
 
 gc.collect()
 
