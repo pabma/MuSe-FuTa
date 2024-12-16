@@ -69,7 +69,7 @@ if args.noXCAT != True:
     NLabels = np.max(labels_dataset_XCAT)+1
 
 #Read from excel file the labels for the data set
-df=pd.read_excel('Thermal_dielectric_acoustic_MR properties_database_V4.2(Excel)_Tv1_sorted.xls',skiprows=[0,1])
+df=pd.read_excel('runnpz/Thermal_dielectric_acoustic_MR properties_database_V4.2(Excel)_Tv1_sorted.xls',skiprows=[0,1])
 
 names=df.iloc[:,1].to_numpy()
 density=df.iloc[:,2].to_numpy()
