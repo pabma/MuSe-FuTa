@@ -24,10 +24,10 @@ barename = file.replace("used/","")
 print(barename)
 
 
-miximg, hepo_z = crop_miximg(barename,args)
+miximg, hepo_z = crop_miximg(barename,args) 
 img = np.flip(np.swapaxes(miximg.get_fdata().astype(np.uint8),0,2),axis = 1)
 
-orimg = crop_orimg(barename,hepo_z)
+orimg = crop_orimg(barename,hepo_z) 
 CT = np.flip(np.swapaxes(orimg.get_fdata(),0,2),axis = 1)
 
 
@@ -69,7 +69,7 @@ if args.noXCAT != True:
     NLabels = np.max(labels_dataset_XCAT)+1
 
 #Read from excel file the labels for the data set
-df=pd.read_excel('Thermal_dielectric_acoustic_MR properties_database_V4.2(Excel)_Tv1_sorted.xls',skiprows=[0,1])
+df=pd.read_excel('runnpz/Thermal_dielectric_acoustic_MR properties_database_V4.2(Excel)_Tv1_sorted.xls',skiprows=[0,1])
 
 names=df.iloc[:,1].to_numpy()
 density=df.iloc[:,2].to_numpy()
@@ -86,6 +86,9 @@ if args.noXCAT == True:
     image_Z = density[labels_dataset_mix[img]]*sos[labels_dataset_mix[img]]
     image_Z[img==51]=2.0*image_Z[img==51]  # MIOCARDIUM -- ESTO NO SERIA MIOCARDIO, SINO PERICARDIO
     image_Z[img==156]=2.0*image_Z[img==156]  # MIOCARDIUM
+    image_Z[img==181]=2.0*image_Z[img==181]  # MIOCARDIUM - Puede no existir en algunas versiones del mix/preprocesado
+    image_Z[img==182]=2.0*image_Z[img==182]  # MIOCARDIUM - Puede no existir en algunas versiones del mix/preprocesado
+    image_Z[img==184]=2.0*image_Z[img==184]  # MIOCARDIUM - Puede no existir en algunas versiones del mix/preprocesado
 #    image_Z[img>166]=2.0*image_Z[img>166]  # OTHER CARDIAC MUSCLES
     image_A = a0[labels_dataset_mix]; 
 if args.noXCAT != True:
@@ -146,12 +149,12 @@ if args.noXCAT == True:
     image_Zfn[(image_L>=151) & (image_L<=154) ] = image_Zf[(image_L>=151) & (image_L<=154)]
     VEIN = np.array((image_L==52) | (image_L==53)).astype(bool)     # Venas, para uso posterior
     ARTERY = np.array((image_L==155) | (image_L==162) | (image_L==163) | (image_L==164) | (image_L==165)).astype(bool)     #Arterias, para uso posterior
-    CHAMBER = np.array((image_L==151) | (image_L==152) | (image_L==153) | (image_L==154)).astype(bool)
+    CHAMBER = np.array((image_L==151) | (image_L==152) | (image_L==153) | (image_L==154)).astype(bool)   #Sin implementar aún
 if args.noXCAT != True:
     image_Zfn[(image_L>=5) & (image_L<=8) ] = image_Zf[(image_L>=5) & (image_L<=8)]
     VEIN = np.array((image_L==43) | (image_L==10)).astype(bool)     # Venas, para uso posterior
     ARTERY = np.array((image_L==42) | (image_L==9)).astype(bool)    #Arterias, para uso posterior
-    CHAMBER = np.array((image_L==5) | (image_L==6) | (image_L==7) | (image_L==8)).astype(bool)
+    CHAMBER = np.array((image_L==5) | (image_L==6) | (image_L==7) | (image_L==8)).astype(bool)  #Sin implementar aún
 
 
 #Las venas tienen etiquetas en XCAT de 10 (coronarias) y 43 (resto)

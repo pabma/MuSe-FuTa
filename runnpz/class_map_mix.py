@@ -181,13 +181,15 @@ class_map = {
         176: "",
         177: "mitral_valve_2",
         178: "tricuspid_valve_2",
-        179: "",
-        180: "",
+        179: "",  ## Si se parte la válvula aórtica, la segunda parte debería ir etiquetada aqui
+        180: "",  ## Si se parte la válvula pulmonar, la segunda parte debería ir etiquetada aqui
         181: "atrium_left_wall",
         182: "atrium_right_wall",
-        183: "",  # es el miocardio, 156
+        183: "",  # This would be the ventricle_left_wall, but thats already in 156 as miocardium.
         184: "ventricle_right_wall"
     }
+    
+## SI SE AÑADEN ESTRUCTURAS VISIBLES A class_map HAY QUE MODIFICAR LA LISTA strut EN npzgen_def y en algún otro sitio que no recuerdo ahora mismo.
 
 #Asignacion de las estructuras de mix como estructuras de XCAT. He supuesto ventriculos y auriculas como llenas de sangre, y las he asignado como tales segun XCAT. DEBERIA SER REVISADO DE ARRIBA A ABAJO
 labels_dataset_mix_XCAT=np.array([0,36,29,31,19,18,26,28,33,33,21,21,20,20,20,22,64,72,49,49,50,44,45,30,32,38,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,1,42,43,42,42,42,42,42,43,43,7,43,43,43,42,42,43,43,38,38,38,38,38,38,38,38,38,38,40,15,15,15,15,15,15,15,15,15,15,16,38,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,15,11,11,0,0,0,0,0,0,20,7,8,5,6,42,1,0,11,37,64,0,9,9,9,9,0,3,4,1,2,0,0,0,0,0,0,0,3,4,0,3,4,0,2])
