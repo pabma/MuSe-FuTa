@@ -81,6 +81,7 @@ A few assembled images:
 
 This will generate a npz file in your main directory, assigning several tissue properties to each label, like density or sound speed, and creating the timed frames which will allow the Ultrasound simulator to run properly later on.
 
+You can find a class map for each label in the class_map_mix.py file settled into the runnpz folder.
 
 ## Contributors:
 
