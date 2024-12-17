@@ -1,5 +1,5 @@
 # TartagliaS
-This Multiple Segmentation Ensemble Algorithm has been developed as part of the Tartaglia IA project to improve medical research.
+This Multiple Segmentation Ensemble Algorithm has been developed as part of the Tartaglia IA project to improve medical research. The algorithm runs currently in two versions. The first one will run and assemble the segmantation results of TotalSegmentator, Platipy and Moose(v3) for every organ in the body using a mode for each voxel in the image, plus some specifically chosen structures which only show up in one model. The second one uses TotalSegmentator as its core, adding most structures from platipy, some of them processed to make them more realistic or to include other structures derived from them, plus a few chosen structures from Moose(v3) models, although not all of them as the first version does.
 
 The first step to take in order to build this multiple segmentation ensemble is (amazingly, I know) to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only three segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
 
@@ -27,7 +27,7 @@ STEP 1) To install and use the segmentators, follow the next instructions (ubunt
       - Run 'sh runsegms.sh' (linux OS).
       - Enjoy some time doing something else while they run.
 
-This will create several directories and run all the segmentators in order, placing their output files in the right directories. BE WARNED, ADVENTURER!!  IF YOU CHANGE THE NAME OR REMOVE ANY OF THIS DIRECTORIES, THE NEXT STEPS ARE DOOMED TO FAIL UNLESS YOU CHANGE ALSO THE CODE!! The directory 'Used' is of special importance here, beware of put or remove files there.
+This will create several directories and run all the segmentators in order, placing their output files in the right directories. BE WARNED, ADVENTURER!!  IF YOU CHANGE THE NAME OR REMOVE ANY OF THIS DIRECTORIES, THE NEXT STEPS ARE DOOMED TO FAIL UNLESS YOU CHANGE ALSO THE CODE!! The directory 'used' is of special importance here, beware of put or remove files there.
 
 STEP 2) To run the processing and assembling of the segmented images.
 
