@@ -13,7 +13,7 @@ To ensure a good experience, there are a few things you need to have in mind (an
 
 - **Memory**: This software is computer heavy! At least 16GB of RAM should be needed for a smooth run.
 
-- **GPU**: Some parts of the sofware allow for GPU acceleration to run faster, so it could be a good idea tohave a good GPU. It is not a dead deal if you do not have one, though.
+- **GPU**: Some parts of the sofware allow for GPU acceleration to run faster, so it could be a good idea to have a good GPU. It is not a dead deal if you do not have one, though.
 
 - **Python**: Python 3.10 must be used, at least for your virtual environment. The installation instructions already cover this, but better safe than sorry!
 
