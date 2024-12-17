@@ -91,7 +91,7 @@ You can find a class map for each label in the class_map_mix.py file settled int
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/pabma"><img src="https://github.com/LalithShiyam.png?s=100" width="100px;" alt="Pablo Martínez Martínez Gabás"/><br /><sub><b>Pablo Martínez Martínez Gabás</b></sub></a><br /><a href="https://github.com/pabma/TartagliaS/commits?author=pabma" title="Code">💻</a> <a href="https://github.com/pabma/TartagliaS/commits?author=pabma" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/pabma"><img src="https://github.com/pabma.png?s=100" width="100px;" alt="Pablo Martínez Martínez Gabás"/><br /><sub><b>Pablo Martínez Martínez Gabás</b></sub></a><br /><a href="https://github.com/pabma/TartagliaS/commits?author=pabma" title="Code">💻</a> <a href="https://github.com/pabma/TartagliaS/commits?author=pabma" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
