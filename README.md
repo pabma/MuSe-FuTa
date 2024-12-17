@@ -71,11 +71,10 @@ The ensembled image will be created partly using the 'mode' between the differen
 
 A few assembled images:
 
-![Alt text](Images/Img_slice_transversal.png)
-![Alt text](Images/Img_slice_coronal.png)
-![Alt text](Images/Img_slice_sagittal.png)
 
+<img src="Images/Img_slice_transversal.png" width="50" />
 <img src="Images/Img_slice_coronal.png" width="50" />
+<img src="Images/Img_slice_sagittal.png" width="50" />
 
 **STEP 3)** Assigning properties to each label.
 
