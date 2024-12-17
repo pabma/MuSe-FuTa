@@ -72,6 +72,6 @@ The ensembled image will be created partly using the 'mode' between the differen
 **STEP 3)** In order to generate the npz files, which will create a map of properties for each label and, later on, will be used to simulate the ultrasound image.
 
    - Download 'runnpz.sh' and the runnpz folder into [a_name]
-   - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original mixed file, using `--noXCAT`. If you do not use this option, the software will automatically generate a file in mix with the XCAT phantom model labels, and generate a npz file with that file.
+   - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original assembled file, using `--noXCAT`. If you do not use this option, the software will automatically generate a file in mix with the XCAT phantom model labels, and generate a npz file with that file.
 
 This will generate a npz file in your main directory, assigning several tissue properties to each label, like density or sound speed, and creating the frames which will allow the Ultrasound simulator to run properly later on.
