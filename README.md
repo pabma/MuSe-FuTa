@@ -75,6 +75,8 @@ A few assembled images:
 ![Alt text](Images/Img_slice_coronal.png)
 ![Alt text](Images/Img_slice_sagittal.png)
 
+<img src="Images/Img_slice_coronal.png" width="50" />
+
 **STEP 3)** Assigning properties to each label.
 
    - Download 'runnpz.sh' and the runnpz folder into [a_name]
