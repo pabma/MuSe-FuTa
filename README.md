@@ -70,7 +70,7 @@ This will create a directory called 'mix', where the ensembled images will be pu
 The ensembled image will be created partly using the 'mode' between the different segmented model images for each voxel, plus some specifically picked up choices to assure the presence of certain structures, like the valves (if you choose that option), which show up only in one segmentator model.
 
 A few assembled images:
-![Assembled images](Images/img_slice_transversal.png)
+![Assembled images](Images/Img_slice_transversal.png)
 
 **STEP 3)** Assigning properties to each label.
 
