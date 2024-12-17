@@ -67,7 +67,7 @@ This will create a directory called 'mix', where the ensembled images will be pu
 
 The ensembled image will be created partly using the 'mode' between the different segmented model images for each voxel, plus some specifically picked up choices to assure the presence of certain structures, like the valves, which show up only in one segmentator model.
 
-STEP 3) In order to generate the npz files, which will create a map of properties for each label and, later on, to simulate the ultrasound image.
+STEP 3) In order to generate the npz files, which will create a map of properties for each label and, later on, will be used to simulate the ultrasound image.
 
    - Download 'runnpz.sh' and the runnpz folder into [a_name]
    - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original mixed file, using --noXCAT. If you do not use this option, the software will automatically generate a file in mix with the XCAT labels, and generate a npz file with it. **NOTE: RIGHT NOW, YOU CANNOT USE THE XCAT LABELS IF YOU WANT THE VALVES TO MOVE.
