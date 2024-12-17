@@ -5,7 +5,7 @@ This Multiple Segmentation Ensemble Algorithm has been developed as part of the 
 
 The first step to take in order to build this multiple segmentation ensemble is (amazingly, I know) to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only three segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
 
-## Requirements
+## Requirements:
 
 To ensure a good experience, there are a few things you need to have in mind (and in your computer):
 
@@ -17,29 +17,33 @@ To ensure a good experience, there are a few things you need to have in mind (an
 
 - **Python**: Python 3.10 must be used, at least for your virtual environment. The installation instructions already cover this, but better safe than sorry!
 
-STEP 1) To install and use the segmentators, follow the next instructions (ubuntu OS, a couple places might have to be edited in requirements.txt for other OS):
+## Installation guide:
 
-   1) Create a virtual environment:
-      - mkdir [a_name -> direcotry/environment name]
-      - cd [a_name]
-      - conda create --name [a_name] python=3.10
+To install and use the segmentators, follow the next instructions (Ubuntu 24.04 OS, a couple lines might have to be edited in requirements.txt for other OS):
+
+1) Create a virtual environment:
+   - mkdir [a_name -> direcotry/environment name]
+   - cd [a_name]
+   - conda create --name [a_name] python=3.10
   
-   2) Install the Segmentators and other necessary packets:
-      - conda activate [a_name]
-      - Download 'requirements.txt' into [a_name].
-      - pip install -r requirements.txt
-      - Look for some CTs to download and segment, a few places to find CTs are:
-        - https://zenodo.org/records/10047292 (Full TotalSegmentator training dataset, there are several repeated images here under different name)
-        - https://zenodo.org/records/10047263 (Reduced TotalSegmentator training dataset)
-        - https://www.cancerimagingarchive.net/collection/ct-images-in-covid-19/
-        - https://www.kaggle.com/datasets/mohamedhanyyy/chest-ctscan-images
+2) Install the Segmentators and other necessary packets:
+   - conda activate [a_name]
+   - Download 'requirements.txt' into [a_name].
+   - pip install -r requirements.txt
+   - Look for some CTs to download and segment, a few places to find CTs are:
+      - https://zenodo.org/records/10047292 (Full TotalSegmentator training dataset, there are several repeated images here under different name)
+     - https://zenodo.org/records/10047263 (Reduced TotalSegmentator training dataset)
+      - https://www.cancerimagingarchive.net/collection/ct-images-in-covid-19/
+     - https://www.kaggle.com/datasets/mohamedhanyyy/chest-ctscan-images
 
-   3) How to run them all, and (later on) in darkness bind them:
-      - Download 'runsegms.sh' and the folder 'runsegms' into [a_name].
-      - Be sure that there is no current file or directory in [a_name] which ends in *.nii.gz.
-      - Copy your original CT files to [a_name] in *.nii.gz format, and change their names so they begin with 'CT_'.
-      - Run 'sh runsegms.sh' (linux OS).
-      - Enjoy some time doing something else while they run.
+## How to use it:
+
+How to run them all, and (later on) in darkness bind them:
+   - Download 'runsegms.sh' and the folder 'runsegms' into [a_name].
+   - Be sure that there is no current file or directory in [a_name] which ends in *.nii.gz.
+   - Copy your original CT files to [a_name] in *.nii.gz format, and change their names so they begin with 'CT_'.
+   - Run 'sh runsegms.sh' (linux OS).
+   - Enjoy some time doing something else while they run.
 
 This will create several directories and run all the segmentators in order, placing their output files in the right directories. BE WARNED, ADVENTURER!!  IF YOU CHANGE THE NAME OR REMOVE ANY OF THIS DIRECTORIES, THE NEXT STEPS ARE DOOMED TO FAIL UNLESS YOU CHANGE ALSO THE CODE!! The directory 'used' is of special importance here, beware of put or remove files there.
 
