@@ -80,3 +80,22 @@ A few assembled images:
    - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original assembled file, using `--noXCAT`. If you do not use this option, the software will automatically generate a file in mix with the XCAT phantom model labels, and then create an .npz file from that XCAT file.
 
 This will generate a npz file in your main directory, assigning several tissue properties to each label, like density or sound speed, and creating the timed frames which will allow the Ultrasound simulator to run properly later on.
+
+
+## Contributors:
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/pabma"><img src="https://github.com/LalithShiyam.png?s=100" width="100px;" alt="Pablo Martínez Martínez Gabás"/><br /><sub><b>Pablo Martínez Martínez Gabás</b></sub></a><br /><a href="https://github.com/pabma/TartagliaS/commits?author=pabma" title="Code">💻</a> <a href="https://github.com/pabma/TartagliaS/commits?author=pabma" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
