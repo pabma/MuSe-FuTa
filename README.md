@@ -38,16 +38,17 @@ To install and use the segmentators, follow the next instructions (Ubuntu 24.04 
 
 ## How to use it:
 
-How to run them all, and (later on) in darkness bind them:
+STEP 1) To run them all...:
+
    - Download 'runsegms.sh' and the folder 'runsegms' into [a_name].
    - Be sure that there is no current file or directory in [a_name] which ends in *.nii.gz.
    - Copy your original CT files to [a_name] in *.nii.gz format, and change their names so they begin with 'CT_'.
-   - Run 'sh runsegms.sh' (linux OS).
+   - Run 'sh runsegms.sh' (Linux OS).
    - Enjoy some time doing something else while they run.
 
-This will create several directories and run all the segmentators in order, placing their output files in the right directories. BE WARNED, ADVENTURER!!  IF YOU CHANGE THE NAME OR REMOVE ANY OF THIS DIRECTORIES, THE NEXT STEPS ARE DOOMED TO FAIL UNLESS YOU CHANGE ALSO THE CODE!! The directory 'used' is of special importance here, beware of put or remove files there.
+This will create several folders and run all the segmentators in order, placing their output files in the right folder. BE WARNED, ADVENTURER!!  IF YOU CHANGE THE NAME OR REMOVE ANY OF THIS DIRECTORIES, THE NEXT STEPS ARE DOOMED TO FAIL UNLESS YOU CHANGE ALSO THE CODE!! The directory 'used' is of special importance here, beware of put or remove files there.
 
-STEP 2) To run the processing and assembling of the segmented images.
+STEP 2) ...and in Darkness bind them:
 
    - For some versions of the software, you might need to take the next steps in order for this part to run properly:
      - pip uninstall stl
@@ -55,7 +56,7 @@ STEP 2) To run the processing and assembling of the segmented images.
      - pip install fastmorph
    - Download 'runproc.sh' and 'runprocPTyTS.sh' into [a_name]. This two files are, in fact, the same but with different commented lines so, if you are up to edit them yourself, you can use only one of them and edit it as you need.
    - Download the folder 'runproc' into [a_name].
-   - run 'sh runproc.sh' or 'sh runproc_PTyTS.sh' (linux). There are several input options to choose here:
+   - run 'sh runproc.sh' or 'sh runproc_PTyTS.sh' (Linux OS). There are several input options to choose here:
       - --flungs .- Will fuse/assemble the lung lobes into a single structure representing the lungs.
       - --fheart .- Will fuse/assemble all the heart structures into a single structure representingt the full heart withuot any cardiac structures (This option is incompatible with the next ones, so take care or weird things might happen).
       - --harteries .- Will include the coronary arteries into the assembled image. If this option is not set, those structures will not be included.
