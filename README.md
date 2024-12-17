@@ -71,8 +71,8 @@ The ensembled image will be created partly using the 'mode' between the differen
 
 A few assembled images:
 
-
 <img src="Images/Img_slice_transversal.png" width="325" /> <img src="Images/Img_slice_coronal.png" width="325" /> <img src="Images/Img_slice_sagittal.png" width="325" />
+<img src="Images/Img_2_transversal.png" width="325" /> <img src="Images/Img_2_coronal.png" width="325" /> <img src="Images/Img_2_sagittal.png" width="325" />
 
 **STEP 3)** Assigning properties to each label.
 
