@@ -9,9 +9,9 @@ The first step to take in order to build this multiple segmentation ensemble is 
 
 To ensure a good experience, there are a few things you need to have in mind (and in your computer):
 
-- **Operating System**: This software was developed in Ubuntu 24.04, and has not been tested in other OS. Installation is the only part which could be affected for other Liunx based OS, and I do not know yet if it will work in Windows. 
+- **Operating System**: This software was developed in Ubuntu 24.04, and has not been tested in other OS. Installation is the only part which should be affected for other Liunx based OS, and I do not know yet if it will work at all in Windows (although it should in a Linux emulator).
 
-- **Memory**: This software is computer heavy! At least 16GB of RAM should be needed for a smooth run.
+- **Memory**: This software packs some heavy gear! At least 16GB of RAM should be needed for a smoother run.
 
 - **GPU**: Some parts of the sofware allow for GPU acceleration to run faster, so it could be a good idea to have a good GPU. It is not a dead deal if you do not have one, though.
 
