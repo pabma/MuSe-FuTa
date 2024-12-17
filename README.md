@@ -67,11 +67,11 @@ This will create several folders and run all the segmentators in order, placing 
 
 This will create a directory called 'mix', where the ensembled images will be put, ready to be used in the postprocessing. There should be a mix_0 image, with all the basic structures and thinned valves in regards of its original shape, and a mix_1 image, in which some postprocessing has been done, like splitting the valves and cleaning the Miocardium around them. -- And, right now, several images with the valves rotated by a certain degree into your main directory.
 
-The ensembled image will be created partly using the 'mode' between the different segmented model images for each voxel, plus some specifically picked up choices to assure the presence of certain structures, like the valves, which show up only in one segmentator model.
+The ensembled image will be created partly using the 'mode' between the different segmented model images for each voxel, plus some specifically picked up choices to assure the presence of certain structures, like the valves (if you choose that option), which show up only in one segmentator model.
 
 **STEP 3)** Assigning properties to each label.
 
    - Download 'runnpz.sh' and the runnpz folder into [a_name]
-   - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original assembled file, using `--noXCAT`. If you do not use this option, the software will automatically generate a file in mix with the XCAT phantom model labels, and generate a npz file with that file.
+   - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original assembled file, using `--noXCAT`. If you do not use this option, the software will automatically generate a file in mix with the XCAT phantom model labels, and then create an .npz file from that XCAT file.
 
 This will generate a npz file in your main directory, assigning several tissue properties to each label, like density or sound speed, and creating the timed frames which will allow the Ultrasound simulator to run properly later on.
