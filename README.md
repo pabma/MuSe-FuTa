@@ -1,3 +1,5 @@
+![TartagliaS-logo](Images/logo_tartaglia.svg)
+
 # TartagliaS
 This Multiple Segmentation Ensemble Algorithm has been developed as part of the Tartaglia IA project to improve medical research. The algorithm runs currently in two versions. The first one will run and assemble the segmantation results of TotalSegmentator, Platipy and Moose(v3) for every organ in the body using a mode for each voxel in the image, plus some specifically chosen structures which only show up in one model. The second one uses TotalSegmentator as its core, adding most structures from platipy, some of them processed to make them more realistic or to include other structures derived from them, plus a few chosen structures from Moose(v3) models, although not all of them as the first version does.
 
