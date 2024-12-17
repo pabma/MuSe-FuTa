@@ -59,10 +59,10 @@ This will create several folders and run all the segmentators in order, placing 
    - Download 'runproc.sh' and 'runprocPTyTS.sh' into [a_name]. This two files are, in fact, the same but with different commented lines so, if you are up to edit them yourself, you can use only one of them and edit it as you need.
    - Download the folder 'runproc' into [a_name].
    - run 'sh runproc.sh' or 'sh runproc_PTyTS.sh' (Linux OS). There are several input options to choose here:
-      - --flungs .- Will fuse/assemble the lung lobes into a single structure representing the lungs.
-      - --fheart .- Will fuse/assemble all the heart structures into a single structure representingt the full heart withuot any cardiac structures (This option is incompatible with the next ones, so take care or weird things might happen).
-      - --harteries .- Will include the coronary arteries into the assembled image. If this option is not set, those structures will not be included.
-      - --hvalves .- Will include the different heart valves (mitral, tricuspid, aortic and pulmonary) into the assembled image (Important choice for another part of this project which will simulate the heartbeat).
+      - `--flungs` .- Will fuse/assemble the lung lobes into a single structure representing the lungs.
+      - `--fheart` .- Will fuse/assemble all the heart structures into a single structure representingt the full heart withuot any cardiac structures (This option is incompatible with the next ones, so take care or weird things might happen).
+      - `--harteries` .- Will include the coronary arteries into the assembled image. If this option is not set, those structures will not be included.
+      - `--hvalves` .- Will include the different heart valves (mitral, tricuspid, aortic and pulmonary) into the assembled image (Important choice for another part of this project which will simulate the heartbeat).
    - Enjoy some time doing anything else while the software is assembling the segmented images.
 
 This will create a directory called 'mix', where the ensembled images will be put, ready to be used in the postprocessing. There should be a mix_0 image, with all the basic structures and thinned valves in regards of its original shape, and a mix_1 image, in which some postprocessing has been done, like splitting the valves and cleaning the Miocardium around them. -- And, right now, several images with the valves rotated by a certain degree into your main directory.
@@ -72,6 +72,6 @@ The ensembled image will be created partly using the 'mode' between the differen
 **STEP 3)** In order to generate the npz files, which will create a map of properties for each label and, later on, will be used to simulate the ultrasound image.
 
    - Download 'runnpz.sh' and the runnpz folder into [a_name]
-   - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original mixed file, using --noXCAT. If you do not use this option, the software will automatically generate a file in mix with the XCAT labels, and generate a npz file with it. **NOTE: RIGHT NOW, YOU CANNOT USE THE XCAT LABELS IF YOU WANT THE VALVES TO MOVE.
+   - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original mixed file, using `--noXCAT`. If you do not use this option, the software will automatically generate a file in mix with the XCAT phantom model labels, and generate a npz file with that file.
 
 This will generate a npz file in your main directory, assigning several tissue properties to each label, like density or sound speed, and creating the frames which will allow the Ultrasound simulator to run properly later on.
