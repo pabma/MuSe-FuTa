@@ -6,7 +6,9 @@ This Multiple Segmentation Ensemble Algorithm has been developed as part of the 
 The first step to take in order to build this multiple segmentation ensemble is (amazingly, I know) to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only three segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
 
 TotalSegmentator GitHub page: https://github.com/wasserth/TotalSegmentator
+
 Platipy GiHhub page: https://github.com/pyplati/platipy
+
 Moose GitHub page: https://github.com/ENHANCE-PET/MOOSE
 
 ## Requirements:
