@@ -52,7 +52,7 @@ This will create several folders and run all the segmentators in order, placing 
 
 **STEP 2)** *...and in Darkness bind them:*
 
-   - For some versions of the software, you might need to take the next steps in order for this part to run properly:
+   - Pre-installed software might interfere with this application, you might need to take the next steps in order for the next sections to run properly:
      - pip uninstall stl
      - pip install numpy-stl
      - pip install fastmorph
