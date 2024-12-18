@@ -87,6 +87,13 @@ This will generate a npz file in your main directory, assigning several tissue p
 
 You can find a class map for each label in the class_map_mix.py file settled into the runnpz folder.
 
+## To do list:
+
+   - Merge mix_img.py and mix_img_TSyPT.py, plus preproc.py and preproc_TSyPT.py files, so the software can assenble images as detailed as possible in every section (clue: remove cardiac structures from some segmentation models and include only the platipy ones in the TSyPT files). This will also remove the current need for the usage of two runproc files.
+   - Check the crop distances of the images in the npz generator file, it might give troubles with small images, although is necessary so big images do not give memory issues (another possibility is to improve the code even more so it can handle bigger chuncks of data).
+   - Some of the rotated valves are showing up a strange and unrealistic behavior after we transformed the images from 1.5 mm spacing to 1.0 mm spacing (before that point, all rotated valves showed up as they were intended to do).
+   - If cardiac and lung structures will be kept as the most detailed strucutres, while keeping the detail of other structures low than the software allows, it might be a good idea, in order to reduce computing time, to run the assembling only for the regions with lung and cardiac structures, while letting other sections to be defined by only one segmentator.
+
 ## Contributors:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
