@@ -46,7 +46,7 @@ To install and use the segmentators, follow the next instructions (Ubuntu 24.04 
    - Be sure that there is no current file or directory in [a_name] which ends in *.nii.gz.
    - Copy your original CT files to [a_name] in *.nii.gz format, and change their names so they begin with 'CT_'.
    - Run 'sh runsegms.sh' (Linux OS).
-   - Enjoy some time doing something else while they run.
+   - Enjoy some time doing something else while the segmentators run.
 
 This will create several folders and run all the segmentators in order, placing their output files in the right folder. BE WARNED, ADVENTURER!!  IF YOU CHANGE THE NAME OR REMOVE ANY OF THIS DIRECTORIES, THE NEXT STEPS ARE DOOMED TO FAIL UNLESS YOU CHANGE ALSO THE CODE!! The directory 'used' is of special importance here, beware of put or remove files there.
 
@@ -73,6 +73,8 @@ A few assembled images:
 
 <img src="Images/Img_slice_transversal.png" width="325" /> <img src="Images/Img_slice_coronal.png" width="325" /> <img src="Images/Img_slice_sagittal.png" width="325" />
 <img src="Images/Img_2_transversal.png" width="325" /> <img src="Images/Img_2_coronal.png" width="325" /> <img src="Images/Img_2_sagittal.png" width="325" />
+
+This sofware has been specially developed to improve the quality of the cardiac structures in medical imaging, and its sourronding areas (like the lungs). As such, the selected images show this structores with special detail, while not being as detailded as the model allows in other sections of the body.
 
 **STEP 3)** Assigning properties to each label.
 
