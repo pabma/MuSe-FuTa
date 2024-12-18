@@ -84,7 +84,7 @@ A few assembled images:
 
 This sofware has been specially developed to improve the quality of the cardiac structures in medical imaging, and its sourronding areas (like the lungs). As such, the selected images show this regions with special detail, while not being as detailded as the model allows in other parts of the body.
 
-**STEP 3)** Assigning properties to each label.
+**STEP 3) Assigning properties to each label.**
 
    - Download 'runnpz.sh' and the runnpz folder into [a_name]
    - run 'sh runnpz.sh' (Linux OS). You have the option to run it from the original assembled file, using `--noXCAT`. If you do not use this option, the software will automatically generate a file in mix with the XCAT phantom model labels, and then create an .npz file from that XCAT file.
