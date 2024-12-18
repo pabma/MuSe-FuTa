@@ -59,8 +59,8 @@ This will create several folders and run all the segmentators in order, placing 
    - Download 'runproc.sh' and 'runprocPTyTS.sh' into [a_name]. This two files are, in fact, the same but with different commented lines so, if you are up to edit them yourself, you can use only one of them and edit it as you need.
    - Download the folder 'runproc' into [a_name].
    - run 'sh runproc.sh' or 'sh runproc_PTyTS.sh' (Linux OS, explanation of what each of them do below). There are several input options to choose here:
-      - `--flungs` .- Will fuse/assemble the lung lobes into a single structure representing the lungs.
-      - `--fheart` .- Will fuse/assemble all the heart structures into a single structure representingt the full heart withuot any cardiac structures (This option is incompatible with the next ones, so take care or weird things might happen).
+      - `--flungs` .- Will assemble the lung lobes into a single structure representing the lungs.
+      - `--fheart` .- Will assemble all the heart structures into a single structure representingt the full heart withuot any cardiac structures (This option is incompatible with the next ones, so take care or weird things might happen).
       - `--harteries` .- Will include the coronary arteries into the assembled image. If this option is not set, those structures will not be included.
       - `--hvalves` .- Will include the different heart valves (mitral, tricuspid, aortic and pulmonary) into the assembled image (Important choice for another part of this project which will simulate the heartbeat).
    - Enjoy some time doing anything else while the software is assembling the segmented images.
