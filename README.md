@@ -76,7 +76,7 @@ A few assembled images:
 <img src="Images/Img_slice_transversal.png" width="325" /> <img src="Images/Img_slice_coronal.png" width="325" /> <img src="Images/Img_slice_sagittal.png" width="325" />
 <img src="Images/Img_2_transversal.png" width="325" /> <img src="Images/Img_2_coronal.png" width="325" /> <img src="Images/Img_2_sagittal.png" width="325" />
 
-This sofware has been specially developed to improve the quality of the cardiac structures in medical imaging, and its sourronding areas (like the lungs). As such, the selected images show this structores with special detail, while not being as detailded as the model allows in other sections of the body.
+This sofware has been specially developed to improve the quality of the cardiac structures in medical imaging, and its sourronding areas (like the lungs). As such, the selected images show this regions with special detail, while not being as detailded as the model allows in other parts of the body.
 
 **STEP 3)** Assigning properties to each label.
 
