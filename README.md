@@ -5,6 +5,10 @@ This Multiple Segmentation Ensemble Algorithm has been developed as part of the 
 
 The first step to take in order to build this multiple segmentation ensemble is (amazingly, I know) to install the Medical Image Segmentators we have chosen. In this first iteration, we have worked with only three segmentators, although two of them have several different models, this segmentators are TotalSegmentator, Platipy and Moose(v3).
 
+TotalSegmentator GitHub page: https://github.com/wasserth/TotalSegmentator
+Platipy GiHhub page: https://github.com/pyplati/platipy
+Moose GitHub page: https://github.com/ENHANCE-PET/MOOSE
+
 ## Requirements:
 
 To ensure a good experience, there are a few things you need to have in mind (and in your computer):
@@ -34,9 +38,9 @@ To install and use the segmentators, follow the next instructions (Ubuntu 24.04 
    - pip install -r requirements.txt
    - Look for some CTs to download and segment, a few places to find CTs are:
       - https://zenodo.org/records/10047292 (Full TotalSegmentator training dataset, there are several repeated images here under different name)
-     - https://zenodo.org/records/10047263 (Reduced TotalSegmentator training dataset)
+      - https://zenodo.org/records/10047263 (Reduced TotalSegmentator training dataset)
       - https://www.cancerimagingarchive.net/collection/ct-images-in-covid-19/
-     - https://www.kaggle.com/datasets/mohamedhanyyy/chest-ctscan-images
+      - https://www.kaggle.com/datasets/mohamedhanyyy/chest-ctscan-images
 
 ## How to use it:
 
