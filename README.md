@@ -40,7 +40,7 @@ To install and use the segmentators, follow the next instructions (Ubuntu 24.04 
 
 ## How to use it:
 
-**STEP 1) *To run them all...* **
+**STEP 1) *To run them all...***
 
    - Download 'runsegms.sh' and the folder 'runsegms' into [a_name].
    - Be sure that there is no current file or directory in [a_name] which ends in *.nii.gz.
@@ -50,7 +50,7 @@ To install and use the segmentators, follow the next instructions (Ubuntu 24.04 
 
 This will create several folders and run all the segmentators in order, placing their output files in the right folder. BE WARNED, ADVENTURER!!  IF YOU CHANGE THE NAME OR REMOVE ANY OF THIS DIRECTORIES, THE NEXT STEPS ARE DOOMED TO FAIL UNLESS YOU CHANGE ALSO THE CODE!! The directory 'used' is of special importance here, beware of put or remove files there.
 
-**STEP 2) *...and in Darkness bind them:* **
+**STEP 2) *...and in Darkness bind them:***
 
    - Pre-installed software might interfere with this application, you might need to take the next steps in order for the next sections to run properly:
      - pip uninstall stl
